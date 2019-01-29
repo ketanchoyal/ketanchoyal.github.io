@@ -133,6 +133,10 @@ html {
   .hero h2 {
     font-size: 46px;
   }
+
+  .hero h3 {
+    font-size: 40px;
+  }
 }
 
 
@@ -148,6 +152,10 @@ html {
 
   .hero h2 {
     font-size: 40px;
+  }
+
+  .hero h3 {
+    font-size: 33px;
   }
 
   .phone {
@@ -170,13 +178,14 @@ html {
   }
 
   .hero h2 {
-    font-size: 22px;
+    font-size: 25px;
   }
 
-  .youtube-img {
-	width: 350px;
-	height: 218px;
+  .hero h3 {
+    font-size: 20px;
   }
+
+  
 }
 
 /* --------------------------------------------------------------------------------------
