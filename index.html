@@ -20,16 +20,30 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <script>
-  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        
+        var imageparkeriOS = ["img/index/the-parkeriOS-2.png", "img/index/the-parkeriOS-3.png","img/index/the-parkeriOS-1.png"]
+        var imagebreakpoint = ["img/index/breakpoint-2.png","img/index/breakpoint-3.png","img/index/breakpoint-1.png"]
 
-  		ga('create', 'UA-61802623-1', 'auto');
-  		ga('send', 'pageview');
+      var indexparkeriOS = 0;
+      setInterval(function(){
+        if (indexparkeriOS === imageparkeriOS.length) {
+            indexparkeriOS = 0;
+        }
+        document.getElementById("imagesparkeriOS").src = imageparkeriOS[indexparkeriOS];
+        indexparkeriOS++;
+      }, 2000);
+
+      var indexbreakpoint = 0;
+      setInterval(function(){
+        if (indexbreakpoint === imagebreakpoint.length) {
+            indexbreakpoint = 0;
+        }
+        document.getElementById("imagesbreakpoint").src = imagebreakpoint[indexbreakpoint];
+        indexbreakpoint++;
+      }, 1800);
+  		
 	</script>
 </head>
-
 
 <body>
     <div class="hero">
@@ -47,6 +61,63 @@
     <div class="portfolio">
 
         <h1>PORTFOLIO</h1>
+
+        <section id="projects">
+            <div class="container-fluid">
+                <div class="row mb-60 justify-content-center align-items-start">
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img class="preview-image" src="img/index/dev-chat.png" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="https://github.com/ketanchoyal/Dev-ChatApp" target="__blank">Dev-ChatApp</a>
+                        </div>
+                    </div>
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img id="imagesparkeriOS" class="preview-image" src="img/index/the-parkeriOS-1.png" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="https://github.com/ketanchoyal/theParker-iOS" target="__blank">theParker-iOS</a>
+                        </div>
+                    </div>
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img id="imagesbreakpoint" class="preview-image" src="img/index/breakpoint-1.png" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="https://github.com/ketanchoyal/_breakpoint" target="__blank">_breakpoint</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img class="preview-image" src="" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="https://github.com/ketanchoyal/BitCoin-Price-Tracker" target="__blank">BitCoin-Price-Tracker</a>
+                        </div>
+                    </div>
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img class="preview-image" src="" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="https://github.com/ketanchoyal/Crossfire" target="__blank">Crossfire(Android)</a>
+                        </div>
+                    </div>
+                    <div class="project-tile text-align-center col-12 col-sm-4">
+                        <a href="" target="__blank">
+                            <img class="preview-image" src="" >
+                        </a>
+                        <div class="project-link-text d-flex justify-content-center align-items-center">
+                            <a href="" target="__blank">theParker(Android)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
     </div>
 
@@ -66,7 +137,7 @@
 
                 <div class="col-md-6 footer-info">
                     <p>Self-taught iOS/Android Developer of intermediate level. I started App development in early 2017 and loving it since then. </p>
-                    <p>I’ve completed varios iOS applications ranging from Shared Parking Application as Final-Year Project to Developers Themed Chat application using Firebase and many more.</p>
+                    <p>I’ve completed varios iOS applications ranging from Shared Parking Application as Final-Year Project to Developers Themed Chat application using Firebase and many more Apps.</p>
                     <p>I've also completed varios Android applications like Crossfire-Chat Application based on Firebase Realtime-Database, Theparker-Shared Parking application as Final-Year Project.</p>
                     <p>iOS and Android coding junkie. Friends and Game of Thrones nerd. Feverish learner.</p>
                 </div>
