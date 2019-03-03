@@ -23,6 +23,7 @@
         
         var imageparkeriOS = ["img/index/the-parkeriOS-2.png", "img/index/the-parkeriOS-3.png","img/index/the-parkeriOS-1.png"]
         var imagebreakpoint = ["img/index/breakpoint-2.png","img/index/breakpoint-3.png","img/index/breakpoint-1.png"]
+        var imagecrossfire = ["img/index/crossfire-2.png","img/index/crossfire-3.png","img/index/crossfire-4.png","img/index/crossfire-1.png"]
 
       var indexparkeriOS = 0;
       setInterval(function(){
@@ -41,6 +42,15 @@
         document.getElementById("imagesbreakpoint").src = imagebreakpoint[indexbreakpoint];
         indexbreakpoint++;
       }, 1800);
+
+      var indexcrossfire = 0;
+      setInterval(function(){
+        if (indexcrossfire === imagecrossfire.length) {
+            indexcrossfire = 0;
+        }
+        document.getElementById("imagescrossfire").src = imagecrossfire[indexcrossfire];
+        indexcrossfire++;
+      }, 2200);
   		
 	</script>
 </head>
@@ -93,7 +103,7 @@
                 <div class="row align-items-start">
                     <div class="project-tile text-align-center col-12 col-sm-4">
                         <a href="" target="__blank">
-                            <img class="preview-image" src="" >
+                            <img class="preview-image" src="img/index/bitcoin-tracker.png" >
                         </a>
                         <div class="project-link-text d-flex justify-content-center align-items-center">
                             <a href="https://github.com/ketanchoyal/BitCoin-Price-Tracker" target="__blank">BitCoin-Price-Tracker</a>
@@ -101,7 +111,7 @@
                     </div>
                     <div class="project-tile text-align-center col-12 col-sm-4">
                         <a href="" target="__blank">
-                            <img class="preview-image" src="" >
+                            <img id="imagescrossfire" class="preview-image" src="img/index/crossfire-1.png" >
                         </a>
                         <div class="project-link-text d-flex justify-content-center align-items-center">
                             <a href="https://github.com/ketanchoyal/Crossfire" target="__blank">Crossfire(Android)</a>
