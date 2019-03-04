@@ -25,32 +25,32 @@
         var imagebreakpoint = ["img/index/breakpoint-2.png","img/index/breakpoint-3.png","img/index/breakpoint-1.png"]
         var imagecrossfire = ["img/index/crossfire-2.png","img/index/crossfire-3.png","img/index/crossfire-4.png","img/index/crossfire-1.png"]
 
-      var indexparkeriOS = 0;
-      setInterval(function(){
-        if (indexparkeriOS === imageparkeriOS.length) {
-            indexparkeriOS = 0;
-        }
-        document.getElementById("imagesparkeriOS").src = imageparkeriOS[indexparkeriOS];
-        indexparkeriOS++;
-      }, 2000);
+        var indexparkeriOS = 0;
+        setInterval(function(){
+            if (indexparkeriOS === imageparkeriOS.length) {
+                indexparkeriOS = 0;
+            }
+            document.getElementById("imagesparkeriOS").src = imageparkeriOS[indexparkeriOS];
+            indexparkeriOS++;
+        }, 2000);
 
-      var indexbreakpoint = 0;
-      setInterval(function(){
-        if (indexbreakpoint === imagebreakpoint.length) {
-            indexbreakpoint = 0;
-        }
-        document.getElementById("imagesbreakpoint").src = imagebreakpoint[indexbreakpoint];
-        indexbreakpoint++;
-      }, 1800);
+        var indexbreakpoint = 0;
+        setInterval(function(){
+            if (indexbreakpoint === imagebreakpoint.length) {
+                indexbreakpoint = 0;
+            }
+            document.getElementById("imagesbreakpoint").src = imagebreakpoint[indexbreakpoint];
+            indexbreakpoint++;
+        }, 1800);
 
-      var indexcrossfire = 0;
-      setInterval(function(){
-        if (indexcrossfire === imagecrossfire.length) {
-            indexcrossfire = 0;
-        }
-        document.getElementById("imagescrossfire").src = imagecrossfire[indexcrossfire];
-        indexcrossfire++;
-      }, 2200);
+        var indexcrossfire = 0;
+        setInterval(function(){
+            if (indexcrossfire === imagecrossfire.length) {
+                indexcrossfire = 0;
+            }
+            document.getElementById("imagescrossfire").src = imagecrossfire[indexcrossfire];
+            indexcrossfire++;
+        }, 2200);
   		
 	</script>
 </head>
