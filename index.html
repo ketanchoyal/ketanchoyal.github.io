@@ -1,174 +1,33 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Mobile App Developer</title>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
 
-    <!-- Prefetch DNS for external assets (Twitter widgets etc). -->
-    <link rel="dns-prefetch" href="//ajax.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//themes.googleusercontent.com">
-    <link rel="dns-prefetch" href="//www.google-analytics.com">
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="flutterPortfolio">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-    <link rel="shortcut icon" href="img/index/favicon.png">
-    <link rel="icon" sizes="192x192" href="img/index/favicon.png">
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
 
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-
-    <script>
-
-        var imageparkeriOS = ["img/index/the-parkeriOS-2.png", "img/index/the-parkeriOS-3.png", "img/index/the-parkeriOS-1.png"]
-        var imagebreakpoint = ["img/index/breakpoint-2.png", "img/index/breakpoint-3.png", "img/index/breakpoint-1.png"]
-        var imagecrossfire = ["img/index/crossfire-2.png", "img/index/crossfire-3.png", "img/index/crossfire-4.png", "img/index/crossfire-1.png"]
-
-        var indexparkeriOS = 0;
-        setInterval(function () {
-            if (indexparkeriOS === imageparkeriOS.length) {
-                indexparkeriOS = 0;
-            }
-            document.getElementById("imagesparkeriOS").src = imageparkeriOS[indexparkeriOS];
-            indexparkeriOS++;
-        }, 2000);
-
-        var indexbreakpoint = 0;
-        setInterval(function () {
-            if (indexbreakpoint === imagebreakpoint.length) {
-                indexbreakpoint = 0;
-            }
-            document.getElementById("imagesbreakpoint").src = imagebreakpoint[indexbreakpoint];
-            indexbreakpoint++;
-        }, 1800);
-
-        var indexcrossfire = 0;
-        setInterval(function () {
-            if (indexcrossfire === imagecrossfire.length) {
-                indexcrossfire = 0;
-            }
-            document.getElementById("imagescrossfire").src = imagecrossfire[indexcrossfire];
-            indexcrossfire++;
-        }, 2200);
-
-    </script>
+  <title>Ketan Choyal | Mobile developer</title>
+  <link rel="manifest" href="manifest.json">
 </head>
-
-<body>
-    <div class="hero">
-        <div class="container">
-            <h1>
-                <span class="first-name">KETAN </span>
-                <span class="last-name">CHOYAL</span>
-            </h1>
-            <h2>iOS/Android Developer</h2>
-
-            <h3>Computer Engineer</h3>
-        </div>
-    </div>
-
-    <div class="portfolio">
-
-        <h1>PORTFOLIO</h1>
-
-        <section id="projects">
-            <div class="container-fluid">
-                <div class="row mb-60 justify-content-center align-items-start">
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img class="preview-image" src="img/index/dev-chat.png">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="https://github.com/ketanchoyal/Dev-ChatApp" target="__blank">Dev-ChatApp</a>
-                        </div>
-                    </div>
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img id="imagesparkeriOS" class="preview-image" src="img/index/the-parkeriOS-1.png">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="https://github.com/ketanchoyal/theParker-iOS" target="__blank">theParker-iOS</a>
-                        </div>
-                    </div>
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img id="imagesbreakpoint" class="preview-image" src="img/index/breakpoint-1.png">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="https://github.com/ketanchoyal/_breakpoint" target="__blank">_breakpoint</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-start">
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img class="preview-image" src="img/index/bitcoin-tracker.png">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="https://github.com/ketanchoyal/BitCoin-Price-Tracker"
-                                target="__blank">BitCoin-Price-Tracker</a>
-                        </div>
-                    </div>
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img id="imagescrossfire" class="preview-image" src="img/index/crossfire-1.png">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="https://github.com/ketanchoyal/Crossfire" target="__blank">Crossfire(Android)</a>
-                        </div>
-                    </div>
-                    <div class="project-tile text-align-center col-12 col-sm-4">
-                        <a href="" target="__blank">
-                            <img class="preview-image" src="">
-                        </a>
-                        <div class="project-link-text d-flex justify-content-center align-items-center">
-                            <a href="" target="__blank">theParker(Android)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="footer-image"></div>
-                    <div class="contact-icons">
-                        <a href="https://www.github.com/ketanchoyal/" target="_blank"><img
-                                src="img/index/github-icon.png"></a>
-                        <a href="https://twitter.com/ketanchoyal" target="_blank"><img
-                                src="img/index/twitter-icon.png"></a>
-                        <a href="https://www.linkedin.com/in/ketanchoyal/" target="_blank"><img
-                                src="img/index/linkedin-icon.png"></a>
-                        <a href="resume/resume.pdf" target="_blank"><img src="img/index/cv-icon.png"></a>
-                        <a href="mailto:ketanchoyal@gmail.com" class="info-link"><img
-                                src="img/index/email-icon.png"></a>
-                    </div>
-                </div>
-
-                <div class="col-md-6 footer-info">
-                    <p>Self-taught iOS/Android Developer of intermediate level. I started App development in early 2017
-                        and loving it since then.</p>
-                    <p>I’ve completed various iOS applications ranging from Shared Parking Application as Final-Year
-                        Project to Developers Themed Chat application using Firebase and many other Apps.</p>
-                    <p>I've also completed various Android applications like Crossfire-Chat Application based on Firebase
-                        Realtime-Database, Theparker-Shared Parking application as Final-Year Project.</p>
-                    <p>iOS and Android coding junkie. Friends and Game of Thrones nerd. Feverish learner.</p>
-                </div>
-
-            </div>
-        </div>
-        <a href="https://smallseotools.com/visitor-hit-counter/" target="_blank" title="Visitor Hit Counter">
-            <img src="https://smallseotools.com/counterDisplay?code=a79150d5501ff18c2748542177c498c6&style=0013&pad=5&type=page&initCount=30"
-                title="Visitor Hit Counter" Alt="Visitor Hit Counter" border="0">
-        </a>
-    </div>
-
+<body id="app-container">
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
 </body>
-
 </html>
