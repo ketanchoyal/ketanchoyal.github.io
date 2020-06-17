@@ -1,0 +1,333 @@
+a, a:visited, a:hover, a:active {
+  color: #e73c3c;
+  text-decoration: none;
+}
+
+p {
+  font-family: Avenir-Medium;
+  font-size: 18px;
+  color: rgb(100,100,100);
+  margin-top: 10px;
+}
+
+time {
+  font-family: Avenir-Heavy;
+  color: #e73c3c;
+  font-size: 20px;
+}
+
+strong {
+  font-family: Avenir-Black;
+  font-size: 20px;
+}
+
+html {
+  overflow:-x: hidden;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------------------
++
++ INDEX
++
+-------------------------------------------------------------------------------------- */
+
+.hero {
+  background-image: initial;
+  background: url(../img/index/macbook-hero.jpg) no-repeat;
+  background-size: cover;
+  height: 950px;
+  background-position: center;
+}
+
+.hero h1 {
+  font-family: Avenir-Book;
+  font-size: 140px;
+  text-align: center;
+  margin-top: 250px;
+}
+
+.hero h2 {
+  text-align: center;
+  color: #fff;
+  font-family: Menlo;
+  font-size: 50px;
+}
+
+.hero h3 {
+  text-align: center;
+  color: #e65100;
+  font-family: Menlo;
+  font-size: 40px;
+}
+
+.last-name {
+  color: rgb(255, 255, 255);
+}
+
+.first-name {
+  color: #e65100;
+  ;
+}
+
+.portfolio h1 {
+  font-family: Avenir-Heavy;
+  font-size: 54px;
+  color: rgb(230, 81, 0);
+  text-align: center;
+  margin-top: 100px;
+}
+
+.footer {
+  background-image: url(../img/index/footer-background-dull.jpg);
+  background-size: cover;
+  background-position: center;
+  margin-top: 100px;
+}
+
+.footer-image {
+  background-image: url(../img/index/footer-pic.png);
+  background-size: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.contact-icons {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-icons img {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 30px;
+  width: 40px;
+  height: 40px;
+}
+
+.footer p {
+  color: white;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.footer-info {
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 1199px) {
+  .hero {
+    height: 800px;
+  }
+
+  .hero h1 {
+    font-size: 120px;
+    margin-top: 250px;
+  }
+
+  .hero h2 {
+    font-size: 46px;
+  }
+
+  .hero h3 {
+    font-size: 40px;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .hero {
+    height: 1024px;
+  }
+
+  .hero h1 {
+    font-size: 100px;
+    margin-top: 250px;
+  }
+
+  .hero h2 {
+    font-size: 40px;
+  }
+
+  .hero h3 {
+    font-size: 33px;
+  }
+
+  .phone {
+    margin-bottom: 0px;
+  }
+
+  .blog-row {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    height: 700px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+    margin-top: 250px;
+  }
+
+  .hero h2 {
+    font-size: 25px;
+  }
+
+  .hero h3 {
+    font-size: 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------------------
++
++ PORTFOLIO
++
+---------------------------------------------------------------------------------------- */
+
+.section-header {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#projects {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.project-tile {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.project-tile a {
+  display: block;
+  text-decoration-line: none;
+  font-size: 20px;
+  font-family: Avenir-Heavy;
+  color: black;
+  transition: color 0.3s;
+}
+
+.preview-image {
+  width: 100%;
+  transition: transform 0.3s, opacity 0.3s, filter 0.2s;
+}
+
+.project-tile:hover .preview-image {
+  transform: scale(1.03);
+  opacity: 0.4;
+  filter: grayscale(100%);
+  transition: transform 0.3s, opacity 0.3s, filter 0.2s;
+}
+
+.project-link-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+
+.project-tile:hover .project-link-text {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+}
+
+.project-link-text a:hover {
+  color: #e73c3c;
+  transform: scale(1.04);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.d-flex {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+.mb-60 {
+  margin-bottom: 60px;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+/* --------------------------------------------------------------------------------------
++
++ SCREEN MODAL
++
+---------------------------------------------------------------------------------------- */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px;  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto;  /*Enable scroll if needed*/
+  background-color: rgb(255,255,255); /* Fallback color */
+  background-color: rgba(255,255,255,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 800px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)}
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
