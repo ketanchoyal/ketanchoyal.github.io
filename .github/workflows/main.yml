@@ -6,7 +6,7 @@ on: [push,pull_request]
 jobs:
   build_deploy:
     #if conditional to prevent a job from running
-    if: (github.base_ref == 'master' || (github.event_name == 'pull_request' || github.event_name == 'push'))
+    if: (github.base_ref == 'dev' || (github.event_name == 'pull_request' || github.event_name == 'push'))
     runs-on: macos-latest
     #Identifies any jobs that must complete successfully before this job will run.
     # needs: [drive_ios,drive_android,test]
@@ -47,6 +47,6 @@ jobs:
       - uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BASE_BRANCH: master
-          BRANCH: gh-pages
+          BASE_BRANCH: dev
+          BRANCH: master
           FOLDER: build/web
