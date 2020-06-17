@@ -24,6 +24,7 @@ class _MobileHomepageState extends State<MobileHomepage>
   double swiftElevation = 5;
   double firebaseElevation = 5;
   double adobeXDElevation = 5;
+  double androidElevation = 5;
   bool easterEggVisibility = false;
   // bool isExpanded = false;
 
@@ -618,6 +619,50 @@ class _MobileHomepageState extends State<MobileHomepage>
                                       ),
                                     ),
                                   ).p(20),
+                                  MouseRegion(
+                                      onHover: (enter) {
+                                        setState(() {
+                                          androidElevation = 25;
+                                        });
+                                      },
+                                      onExit: (exit) {
+                                        setState(() {
+                                          androidElevation = 5;
+                                        });
+                                      },
+                                      child: FlipWidget(
+                                        height: 120,
+                                        width: 120,
+                                        frontWidget: Card(
+                                          color: ColorsX.whiteWithOpacity
+                                              .withOpacity(0.6),
+                                          shadowColor: ColorsX.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          elevation: androidElevation,
+                                          child: 'Android'
+                                              .richText
+                                              .semiBold
+                                              .color(ColorsX.blackWithOpacity)
+                                              .size(TextSize.instance.size7)
+                                              .make()
+                                              .centered(),
+                                        ),
+                                        backWidget: Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          elevation: androidElevation,
+                                          shadowColor: ColorsX.white,
+                                          color: ColorsX.whiteWithOpacity
+                                              .withOpacity(0.4),
+                                          child: Image.asset(
+                                            Images.android,
+                                          ).p(15),
+                                        ),
+                                      ),
+                                    ).p(20),
                                   MouseRegion(
                                     onHover: (enter) {
                                       setState(() {

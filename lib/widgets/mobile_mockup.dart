@@ -51,7 +51,7 @@ class MobileMockup extends StatelessWidget {
                 // flex: 6,
                 child: VxBox(
               child:
-                  "You Have found an easter egg 💙 \nLooking for my projects?? Go on my Github Profile"
+                  "You Have found an easter egg 💙"
                       .text
                       .semiBold
                       .color(ColorsX.whiteWithOpacity)

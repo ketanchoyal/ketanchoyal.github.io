@@ -30,8 +30,8 @@ class ProjectWorks extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            right: 10,
-            top: 10,
+            right: 15,
+            top: 15,
             child: [
               Card(
                 key: _maximizeButtonProjectPageKey,
