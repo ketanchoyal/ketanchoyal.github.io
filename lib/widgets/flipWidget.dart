@@ -46,11 +46,14 @@ class _FlipWidgetState extends State<FlipWidget>
       transform: Matrix4.identity()
         ..setEntry(3, 2, 0.002)
         ..rotateY(pi * _animation.value),
-      child: GestureDetector(
-        onTap: () {
-          if (_animationStatus == AnimationStatus.dismissed) {
+      child: MouseRegion(
+        onHover: (enter) {
+          if (_animationController.status == AnimationStatus.dismissed) {
             _animationController.forward();
-          } else {
+          }
+        },
+        onExit: (exit) {
+          if (_animationController.status == AnimationStatus.completed) {
             _animationController.reverse();
           }
         },
