@@ -75,6 +75,8 @@ const RESOURCES = {
 "favicon.png": "bd59c9df361103f47c35ec378e5d1cc6",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+".github/FUNDING.yml": "ddf3fcddb4c35e347b3cc432e47df168",
+".github/workflows/main.yml": "6450a667343b9a8abe3f4bf267983fa7",
 "manifest.json": "e1344ef2d1e118af6b7ca0efaf394867",
 "favicon@2x.png": "15fcf0900da8d49c682dc7e17331d58b",
 "assets/AssetManifest.json": "0b3cf93014725b5e833e383a2809cba6",
