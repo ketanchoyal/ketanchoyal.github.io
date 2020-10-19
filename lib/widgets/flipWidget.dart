@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
@@ -42,28 +43,59 @@ class _FlipWidgetState extends State<FlipWidget>
   @override
   Widget build(BuildContext context) {
     return Transform(
-      alignment: FractionalOffset.center,
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.002)
-        ..rotateY(pi * _animation.value),
-      child: MouseRegion(
-        onHover: (enter) {
-          if (_animationController.status == AnimationStatus.dismissed) {
-            _animationController.forward();
-          }
-        },
-        onExit: (exit) {
-          if (_animationController.status == AnimationStatus.completed) {
-            _animationController.reverse();
-          }
-        },
-        child: _animation.value <= 0.5
-            ? widget.backWidget
-            : Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(pi),
-                child: widget.frontWidget),
-      ),
-    ).h(widget.height).w(widget.width);
+        alignment: FractionalOffset.center,
+        transform: Matrix4.identity()
+          ..setEntry(3, 2, 0.002)
+          ..rotateY(pi * _animation.value),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (ResponsiveWrapper.of(context).equals(MOBILE) ||
+                ResponsiveWrapper.of(context).isSmallerThan(MOBILE)) {
+              return _mobileFlipWidget();
+            } else if (ResponsiveWrapper.of(context).equals(TABLET)) {
+              return _desktopFlipWidget();
+            } else {
+              return _desktopFlipWidget();
+            }
+          },
+        )).h(widget.height).w(widget.width);
+  }
+
+  _desktopFlipWidget() {
+    return MouseRegion(
+      onHover: (enter) {
+        if (_animationStatus == AnimationStatus.dismissed) {
+          _animationController.forward();
+        }
+      },
+      onExit: (exit) {
+        if (_animationStatus == AnimationStatus.completed) {
+          _animationController.reverse();
+        }
+      },
+      child: _mainChild(),
+    );
+  }
+
+  _mobileFlipWidget() {
+    return GestureDetector(
+      onTap: () {
+        if (_animationStatus == AnimationStatus.dismissed) {
+          _animationController.forward();
+        } else {
+          _animationController.reverse();
+        }
+      },
+      child: _mainChild(),
+    );
+  }
+
+  _mainChild() {
+    return _animation.value <= 0.5
+        ? widget.backWidget
+        : Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(pi),
+            child: widget.frontWidget);
   }
 }

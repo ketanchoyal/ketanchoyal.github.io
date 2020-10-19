@@ -17,8 +17,6 @@ class MobileHomepage extends StatefulWidget {
 
 class _MobileHomepageState extends State<MobileHomepage>
     with SingleTickerProviderStateMixin {
-  final String _about =
-      "I'm a Mobile Application Developer who is in love with programming. I like to work on ambitious projects, learn new technologies, design and implement mobile applications. If I'm not on computer, I'm watching Netflix, listening to music or spending time with family.";
   double flutterElevation = 5;
   double githubElevation = 5;
   double swiftElevation = 5;
@@ -87,7 +85,7 @@ class _MobileHomepageState extends State<MobileHomepage>
                         }
                       },
                       child: ProjectWorks(
-                        isMobile: true,
+                          isMobile: true,
                           maximizeButtonProjectPageKey:
                               _maximizeButtonProjectPageKey,
                           minimizeButtonProjectPageKey:
@@ -221,7 +219,7 @@ class _MobileHomepageState extends State<MobileHomepage>
                                   .make()
                                   .pSymmetric(v: 5),
                               VxBox().height(20).make(),
-                              _about.text
+                              about.text
                                   .maxLines(5)
                                   .color(ColorsX.whiteWithOpacity)
                                   .semiBold
@@ -620,49 +618,49 @@ class _MobileHomepageState extends State<MobileHomepage>
                                     ),
                                   ).p(20),
                                   MouseRegion(
-                                      onHover: (enter) {
-                                        setState(() {
-                                          androidElevation = 25;
-                                        });
-                                      },
-                                      onExit: (exit) {
-                                        setState(() {
-                                          androidElevation = 5;
-                                        });
-                                      },
-                                      child: FlipWidget(
-                                        height: 120,
-                                        width: 120,
-                                        frontWidget: Card(
-                                          color: ColorsX.whiteWithOpacity
-                                              .withOpacity(0.6),
-                                          shadowColor: ColorsX.white,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          elevation: androidElevation,
-                                          child: 'Android'
-                                              .richText
-                                              .semiBold
-                                              .color(ColorsX.blackWithOpacity)
-                                              .size(TextSize.instance.size7)
-                                              .make()
-                                              .centered(),
-                                        ),
-                                        backWidget: Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          elevation: androidElevation,
-                                          shadowColor: ColorsX.white,
-                                          color: ColorsX.whiteWithOpacity
-                                              .withOpacity(0.4),
-                                          child: Image.asset(
-                                            Images.android,
-                                          ).p(15),
-                                        ),
+                                    onHover: (enter) {
+                                      setState(() {
+                                        androidElevation = 25;
+                                      });
+                                    },
+                                    onExit: (exit) {
+                                      setState(() {
+                                        androidElevation = 5;
+                                      });
+                                    },
+                                    child: FlipWidget(
+                                      height: 120,
+                                      width: 120,
+                                      frontWidget: Card(
+                                        color: ColorsX.whiteWithOpacity
+                                            .withOpacity(0.6),
+                                        shadowColor: ColorsX.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        elevation: androidElevation,
+                                        child: 'Android'
+                                            .richText
+                                            .semiBold
+                                            .color(ColorsX.blackWithOpacity)
+                                            .size(TextSize.instance.size7)
+                                            .make()
+                                            .centered(),
                                       ),
-                                    ).p(20),
+                                      backWidget: Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        elevation: androidElevation,
+                                        shadowColor: ColorsX.white,
+                                        color: ColorsX.whiteWithOpacity
+                                            .withOpacity(0.4),
+                                        child: Image.asset(
+                                          Images.android,
+                                        ).p(15),
+                                      ),
+                                    ),
+                                  ).p(20),
                                   MouseRegion(
                                     onHover: (enter) {
                                       setState(() {

@@ -17,8 +17,6 @@ class DesktopHomepage extends StatefulWidget {
 
 class _DesktopHomepageState extends State<DesktopHomepage>
     with SingleTickerProviderStateMixin {
-  final String _about =
-      "I'm a Mobile Application Developer who is in love with programming. I like to work on ambitious projects, learn new technologies, design and implement mobile applications. If I'm not on computer, I'm watching Netflix, listening to music or spending time with family.";
   double flutterElevation = 5;
   double githubElevation = 5;
   double swiftElevation = 5;
@@ -221,7 +219,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                                     .make()
                                     .pSymmetric(v: 5),
                                 VxBox().height(20).make(),
-                                _about.text
+                                about.text
                                     .maxLines(4)
                                     .color(ColorsX.whiteWithOpacity)
                                     .semiBold

@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
               Positioned(
                 bottom: 120,
                 left: -100,
-                child: "Made with 💙 in Flutter"
+                child: "Made with 💙 for #Flutter"
                     .text
                     .semiBold
                     .textStyle(TextStyle(
