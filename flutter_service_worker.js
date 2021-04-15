@@ -4,19 +4,20 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "25d1f50c0a2248969ec86f3fce9bc950",
-"index.html": "54f620e0fc5d203132dace03f5931e5a",
-"/": "54f620e0fc5d203132dace03f5931e5a",
-"main.dart.js": "81ede0fa0b11569cc847db6433d48e7f",
+"index.html": "32ea4f6b80fcb7532fb0cc30e6f9ca03",
+"/": "32ea4f6b80fcb7532fb0cc30e6f9ca03",
+"main.dart.js": "ba67776db1d1441cde61fcec72385878",
+"old/img/index/favicon.png": "7f4bab8906b225d0409bf6af29771503",
 "favicon.png": "bd59c9df361103f47c35ec378e5d1cc6",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "e1344ef2d1e118af6b7ca0efaf394867",
 "favicon@2x.png": "15fcf0900da8d49c682dc7e17331d58b",
-"assets/AssetManifest.json": "51e017be25f360e1610a4a11c70bea74",
-"assets/NOTICES": "b4f4990cc27cba3f4f593005cd38721b",
+"assets/AssetManifest.json": "f8ad000657aeafac722cf21a88392ff2",
+"assets/NOTICES": "4612c6466383e31abd4dc107f6855955",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
-"assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
+"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/assets/images/support.png": "2e547499e121cb8a5154b62b0df65f6d",
 "assets/assets/images/gitHubDart.png": "5e46aa7478bcfd2fec7bc4f9c4738f13",
 "assets/assets/images/adobeXD.png": "e2a9e8a76e0e4673bd6ba34684a0bac3",
@@ -54,7 +55,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
@@ -180,7 +181,7 @@ async function downloadOffline() {
     }
     currentContent[key] = true;
   }
-  for (var resourceKey in Object.keys(RESOURCES)) {
+  for (var resourceKey of Object.keys(RESOURCES)) {
     if (!currentContent[resourceKey]) {
       resources.push(resourceKey);
     }
