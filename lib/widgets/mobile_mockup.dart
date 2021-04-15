@@ -5,9 +5,9 @@ import 'package:flutterPortfolio/extensions/hoverExtension.dart';
 
 class MobileMockup extends StatelessWidget {
   const MobileMockup({
-    Key key,
-    @required this.easterEggVisibility,
-    @required GlobalKey<State<StatefulWidget>> mobileHomeButtonKey,
+    Key? key,
+    required this.easterEggVisibility,
+    required GlobalKey<State<StatefulWidget>> mobileHomeButtonKey,
   }) : _mobileHomeButtonKey = mobileHomeButtonKey, super(key: key);
 
   final bool easterEggVisibility;

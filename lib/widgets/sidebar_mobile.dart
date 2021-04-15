@@ -8,7 +8,7 @@ import 'package:flutterPortfolio/extensions/hoverExtension.dart';
 
 class SideBarMobile extends StatefulWidget {
   const SideBarMobile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,11 +22,12 @@ class _SideBarMobileState extends State<SideBarMobile> {
   @override
   Widget build(BuildContext context) {
     return MeasureSize(
-      onChange: (Size size) {
-        setState(() {
+      onChange: (Size? size) {
+        if (size != null) {
           sidebarWidth = size.width;
           sidebarHeight = size.height;
-        });
+        }
+        setState(() {});
       },
       child: Card(
         elevation: 10,
@@ -201,8 +202,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
                               .make()
                               .tooltip("Instagram")
                               .click(() {
-                                launch(
-                                    'https://www.instagram.com/ketanchoyal');
+                                launch('https://www.instagram.com/ketanchoyal');
                               })
                               .make()
                               .moveUpOnHover,
@@ -227,10 +227,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
                                   fontWeight: FontWeight.w500,
                                 ),
                                 children: <TextSpan>[
-                                  "_Have"
-                                      .textSpan
-                                      .color(ColorsX.white)
-                                      .make(),
+                                  "_Have".textSpan.color(ColorsX.white).make(),
                                   "A".textSpan.color(ColorsX.red).make(),
                                   "n".textSpan.color(ColorsX.white).make(),
                                   "I".textSpan.color(ColorsX.red).make(),
@@ -294,7 +291,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
                             .richText
                             // .text
                             .bold
-                            .size(TextSize.instance.size4)
+                            .size(TextSize.instance.size4!)
                             .color(ColorsX.blackWithOpacity)
                             .make()
                             // .pSymmetric(v: 10)
@@ -319,7 +316,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
                         "_GitHub"
                             .richText
                             .bold
-                            .size(TextSize.instance.size4)
+                            .size(TextSize.instance.size4!)
                             .color(ColorsX.blackWithOpacity)
                             .make()
                             .click(() {})
@@ -329,7 +326,6 @@ class _SideBarMobileState extends State<SideBarMobile> {
                   ],
                 ).pOnly(top: 5),
               ),
-              
             ].vStack(alignment: MainAxisAlignment.center),
           ).p(5),
         ),

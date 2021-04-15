@@ -9,7 +9,7 @@ import 'package:flutterPortfolio/widgets/sidebar_desktop.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DesktopHomepage extends StatefulWidget {
-  DesktopHomepage({Key key}) : super(key: key);
+  DesktopHomepage({Key? key}) : super(key: key);
 
   @override
   _DesktopHomepageState createState() => _DesktopHomepageState();
@@ -59,8 +59,8 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                     child: GestureDetector(
                       onTapUp: (tapDetails) {
                         RenderBox renderBoxMaximizeButton =
-                            _maximizeButtonProjectPageKey.currentContext
-                                .findRenderObject();
+                            _maximizeButtonProjectPageKey.currentContext!
+                                .findRenderObject() as RenderBox;
                         Offset topLeftCornerMaximize =
                             renderBoxMaximizeButton.localToGlobal(Offset.zero);
                         Rect rectangleMaximize = topLeftCornerMaximize &
@@ -72,8 +72,8 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                           });
                         }
                         RenderBox renderBoxMinimizeButton =
-                            _minimizeButtonProjectPageKey.currentContext
-                                .findRenderObject();
+                            _minimizeButtonProjectPageKey.currentContext!
+                                .findRenderObject() as RenderBox;
                         Offset topLeftCornerMinimize =
                             renderBoxMinimizeButton.localToGlobal(Offset.zero);
                         Rect rectangleMinimize = topLeftCornerMinimize &
@@ -108,8 +108,8 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                         child: GestureDetector(
                           onTapUp: (tapDetails) {
                             RenderBox renderBoxHomeButton = _mobileHomeButtonKey
-                                .currentContext
-                                .findRenderObject();
+                                .currentContext!
+                                .findRenderObject() as RenderBox;
                             Offset topLeftCorner =
                                 renderBoxHomeButton.localToGlobal(Offset.zero);
                             Rect rectangle =
@@ -120,8 +120,8 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                               });
                             }
                             RenderBox renderBoxMaximizeButton =
-                                _maximizeButtonHomePageKey.currentContext
-                                    .findRenderObject();
+                                _maximizeButtonHomePageKey.currentContext!
+                                    .findRenderObject() as RenderBox;
                             Offset topLeftCornerMaximize =
                                 renderBoxMaximizeButton
                                     .localToGlobal(Offset.zero);
@@ -135,8 +135,8 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                             }
 
                             RenderBox renderBoxMinimizeButton =
-                                _minimizeButtonHomePageKey.currentContext
-                                    .findRenderObject();
+                                _minimizeButtonHomePageKey.currentContext!
+                                    .findRenderObject() as RenderBox;
                             Offset topLeftCornerMinimize =
                                 renderBoxMinimizeButton
                                     .localToGlobal(Offset.zero);
@@ -152,8 +152,9 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                           child: Stack(
                             children: [
                               MobileMockup(
-                                  easterEggVisibility: easterEggVisibility,
-                                  mobileHomeButtonKey: _mobileHomeButtonKey),
+                                easterEggVisibility: easterEggVisibility,
+                                mobileHomeButtonKey: _mobileHomeButtonKey,
+                              ),
                               Positioned(
                                 right: 10,
                                 top: 10,
@@ -706,7 +707,9 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                                 )
                               ]
                                   .vStack(
-                                      alignment: MainAxisAlignment.spaceEvenly)
+                                    alignment: MainAxisAlignment.spaceEvenly,
+                                    crossAlignment: CrossAxisAlignment.start,
+                                  )
                                   .scrollVertical()
                                   .p(20),
                             ],

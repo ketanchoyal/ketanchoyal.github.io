@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: (context, widget) => ResponsiveWrapper.builder(
-        ClampingScrollWrapper.builder(context, widget),
+        ClampingScrollWrapper.builder(context, widget!),
         maxWidth: 1400,
         minWidth: 500,
         defaultScale: true,
@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
               ),
               Positioned(
                 bottom: 120,
-                left: -100,
+                left: -90,
                 child: "Made with 💙 for #Flutter"
                     .text
                     .semiBold
@@ -102,7 +102,9 @@ class MyApp extends StatelessWidget {
       home: Homepage(),
       theme: Theme.of(context).copyWith(
         platform: TargetPlatform.iOS,
-        textTheme: GoogleFonts.latoTextTheme(),
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );

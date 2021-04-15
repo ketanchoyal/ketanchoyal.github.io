@@ -9,7 +9,7 @@ import 'package:flutterPortfolio/widgets/sidebar_mobile.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MobileHomepage extends StatefulWidget {
-  MobileHomepage({Key key}) : super(key: key);
+  MobileHomepage({Key? key}) : super(key: key);
 
   @override
   _MobileHomepageState createState() => _MobileHomepageState();
@@ -58,8 +58,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                     child: GestureDetector(
                       onTapUp: (tapDetails) {
                         RenderBox renderBoxMaximizeButton =
-                            _maximizeButtonProjectPageKey.currentContext
-                                .findRenderObject();
+                            _maximizeButtonProjectPageKey.currentContext!
+                                .findRenderObject() as RenderBox;
                         Offset topLeftCornerMaximize =
                             renderBoxMaximizeButton.localToGlobal(Offset.zero);
                         Rect rectangleMaximize = topLeftCornerMaximize &
@@ -71,8 +71,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                           });
                         }
                         RenderBox renderBoxMinimizeButton =
-                            _minimizeButtonProjectPageKey.currentContext
-                                .findRenderObject();
+                            _minimizeButtonProjectPageKey.currentContext!
+                                .findRenderObject() as RenderBox;
                         Offset topLeftCornerMinimize =
                             renderBoxMinimizeButton.localToGlobal(Offset.zero);
                         Rect rectangleMinimize = topLeftCornerMinimize &
@@ -105,8 +105,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                       child: GestureDetector(
                         onTapUp: (tapDetails) {
                           RenderBox renderBox = _mobileHomeButtonKey
-                              .currentContext
-                              .findRenderObject();
+                              .currentContext!
+                              .findRenderObject() as RenderBox;
                           Offset topLeftCorner =
                               renderBox.localToGlobal(Offset.zero);
                           Size size = renderBox.size;
@@ -118,8 +118,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                           }
 
                           RenderBox renderBoxMaximizeButton =
-                              _maximizeButtonHomePageKey.currentContext
-                                  .findRenderObject();
+                              _maximizeButtonHomePageKey.currentContext!
+                                  .findRenderObject() as RenderBox;
                           Offset topLeftCornerMaximize = renderBoxMaximizeButton
                               .localToGlobal(Offset.zero);
                           // Size size = renderBoxHomeButton.size;
@@ -133,8 +133,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                           }
 
                           RenderBox renderBoxMinimizeButton =
-                              _minimizeButtonHomePageKey.currentContext
-                                  .findRenderObject();
+                              _minimizeButtonHomePageKey.currentContext!
+                                  .findRenderObject() as RenderBox;
                           Offset topLeftCornerMinimize = renderBoxMinimizeButton
                               .localToGlobal(Offset.zero);
                           Rect rectangleMinimize = topLeftCornerMinimize &
@@ -710,7 +710,9 @@ class _MobileHomepageState extends State<MobileHomepage>
                               )
                             ]
                                 .vStack(
-                                    alignment: MainAxisAlignment.spaceEvenly)
+                                  alignment: MainAxisAlignment.spaceEvenly,
+                                  crossAlignment: CrossAxisAlignment.start,
+                                )
                                 .scrollVertical()
                                 .p(20),
                           ],

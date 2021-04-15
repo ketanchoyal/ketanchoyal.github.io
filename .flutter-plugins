@@ -1,6 +1,10 @@
 # This is a generated file; do not edit or check into version control.
-path_provider=/Users/student/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.9/
-path_provider_macos=/Users/student/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/
-url_launcher=/Users/student/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.4.10/
-url_launcher_macos=/Users/student/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+7/
-url_launcher_web=/Users/student/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+6/
+path_provider=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.1/
+path_provider_linux=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.0.0/
+path_provider_macos=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.0/
+path_provider_windows=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.0/
+url_launcher=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher-6.0.3/
+url_launcher_linux=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_linux-2.0.0/
+url_launcher_macos=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-2.0.0/
+url_launcher_web=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-2.0.0/
+url_launcher_windows=/Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_windows-2.0.0/

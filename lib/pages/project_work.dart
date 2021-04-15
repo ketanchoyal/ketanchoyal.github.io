@@ -7,10 +7,10 @@ import 'package:velocity_x/velocity_x.dart';
 
 class ProjectWorks extends StatelessWidget {
   const ProjectWorks({
-    Key key,
-    @required this.isMobile,
-    @required GlobalKey<State<StatefulWidget>> maximizeButtonProjectPageKey,
-    @required GlobalKey<State<StatefulWidget>> minimizeButtonProjectPageKey,
+    Key? key,
+    required this.isMobile,
+    required GlobalKey<State<StatefulWidget>> maximizeButtonProjectPageKey,
+    required GlobalKey<State<StatefulWidget>> minimizeButtonProjectPageKey,
   })  : _maximizeButtonProjectPageKey = maximizeButtonProjectPageKey,
         _minimizeButtonProjectPageKey = minimizeButtonProjectPageKey,
         super(key: key);

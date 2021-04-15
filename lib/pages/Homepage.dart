@@ -13,7 +13,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: ResponsiveHomepage().centered(),
@@ -24,7 +24,7 @@ class _HomepageState extends State<Homepage> {
 
 class ResponsiveHomepage extends StatelessWidget {
   const ResponsiveHomepage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -8,7 +8,7 @@ import 'package:flutterPortfolio/extensions/hoverExtension.dart';
 
 class SideBarDesktop extends StatefulWidget {
   const SideBarDesktop({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -23,10 +23,9 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
     return Flexible(
       flex: 5,
       child: MeasureSize(
-        onChange: (Size size) {
-          setState(() {
-            sidebarWidth = size.width;
-          });
+        onChange: (Size? size) {
+          if (size != null) sidebarWidth = size.width;
+          setState(() {});
         },
         child: Card(
           elevation: 10,
@@ -243,7 +242,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                             .richText
                             // .text
                             .bold
-                            .size(TextSize.instance.size4)
+                            .size(TextSize.instance.size4!)
                             .color(ColorsX.blackWithOpacity)
                             .make()
                             .pSymmetric(v: 10)
@@ -255,7 +254,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                         "_GitHub"
                             .richText
                             .bold
-                            .size(TextSize.instance.size4)
+                            .size(TextSize.instance.size4!)
                             .color(ColorsX.blackWithOpacity)
                             .make()
                             .pSymmetric(v: 10)

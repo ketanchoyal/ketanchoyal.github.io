@@ -4,13 +4,13 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
 class FlipWidget extends StatefulWidget {
-  final Widget frontWidget;
-  final Widget backWidget;
+  final Widget? frontWidget;
+  final Widget? backWidget;
   final double height;
   final double width;
 
   FlipWidget(
-      {Key key,
+      {Key? key,
       this.frontWidget,
       this.backWidget,
       this.height = 100,
@@ -22,8 +22,8 @@ class FlipWidget extends StatefulWidget {
 
 class _FlipWidgetState extends State<FlipWidget>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _animation;
+  late AnimationController _animationController;
+  late Animation _animation;
   AnimationStatus _animationStatus = AnimationStatus.dismissed;
 
   @override
