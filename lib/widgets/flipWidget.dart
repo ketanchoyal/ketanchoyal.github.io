@@ -27,6 +27,12 @@ class _FlipWidgetState extends State<FlipWidget>
   AnimationStatus _animationStatus = AnimationStatus.dismissed;
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     _animationController =

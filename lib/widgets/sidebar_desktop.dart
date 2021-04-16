@@ -31,7 +31,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
           elevation: 10,
           color: ColorsX.blackWithOpacity,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,8 +91,9 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
               Container(
                 width: sidebarWidth,
                 height: 40,
+                padding: EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(10.0),
                   color: ColorsX.white,
                 ),
                 child: AutoSizeText.rich(
@@ -134,10 +135,9 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                   ),
                   // minFontSize: 10,
                   maxLines: 1,
-                  minFontSize: 0,
                   style: TextStyle(fontSize: TextSize.instance.size5),
                 ).centered().pSymmetric(h: 2),
-              ).pSymmetric(v: 5, h: 15),
+              ).pSymmetric(v: 5),
               Container(
                 alignment: Alignment.center,
                 child: Wrap(
@@ -200,7 +200,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                         .moveUpOnHover,
                   ],
                 ),
-              ).pSymmetric(h: 5, v: 30),
+              ).pSymmetric(h: 5, v: 15),
               Card(
                 elevation: 10,
                 color: ColorsX.white,
@@ -265,7 +265,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                     )
                   ],
                 ).h(100),
-              ).pSymmetric(v: 15),
+              ).pSymmetric(v: 10),
               Expanded(
                 child: Wrap(
                   // crossAxisAlignment: CrossAxisAlignment.end,

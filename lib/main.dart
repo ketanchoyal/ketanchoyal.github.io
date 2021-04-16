@@ -101,12 +101,12 @@ class MyApp extends StatelessWidget {
       ),
       home: Homepage(),
       theme: Theme.of(context).copyWith(
-        platform: TargetPlatform.iOS,
         textTheme: GoogleFonts.latoTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
       debugShowCheckedModeBanner: false,
+      title: "Ketan Choyal",
     );
   }
 }

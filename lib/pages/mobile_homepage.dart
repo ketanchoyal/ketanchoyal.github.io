@@ -3,6 +3,7 @@ import 'package:flutterPortfolio/extensions/hoverExtension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterPortfolio/pages/project_work.dart';
 import 'package:flutterPortfolio/resources/resources.dart';
+import 'package:flutterPortfolio/widgets/experience.dart';
 import 'package:flutterPortfolio/widgets/flipWidget.dart';
 import 'package:flutterPortfolio/widgets/mobile_mockup.dart';
 import 'package:flutterPortfolio/widgets/sidebar_mobile.dart';
@@ -100,7 +101,7 @@ class _MobileHomepageState extends State<MobileHomepage>
                       elevation: 10,
                       color: ColorsX.blackWithOpacity,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: GestureDetector(
                         onTapUp: (tapDetails) {
@@ -226,7 +227,8 @@ class _MobileHomepageState extends State<MobileHomepage>
                                   .size(TextSize.instance.size5)
                                   .make()
                                   .pOnly(right: 15),
-                              VxBox().height(40).make(),
+                              VxBox().height(30).make(),
+                              Experience(),
                               AutoSizeText.rich(
                                 TextSpan(
                                   children: [

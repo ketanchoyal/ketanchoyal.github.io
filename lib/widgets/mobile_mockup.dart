@@ -3,16 +3,22 @@ import 'package:flutterPortfolio/resources/resources.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutterPortfolio/extensions/hoverExtension.dart';
 
-class MobileMockup extends StatelessWidget {
+class MobileMockup extends StatefulWidget {
   const MobileMockup({
     Key? key,
     required this.easterEggVisibility,
     required GlobalKey<State<StatefulWidget>> mobileHomeButtonKey,
-  }) : _mobileHomeButtonKey = mobileHomeButtonKey, super(key: key);
+  })   : _mobileHomeButtonKey = mobileHomeButtonKey,
+        super(key: key);
 
   final bool easterEggVisibility;
   final GlobalKey<State<StatefulWidget>> _mobileHomeButtonKey;
 
+  @override
+  _MobileMockupState createState() => _MobileMockupState();
+}
+
+class _MobileMockupState extends State<MobileMockup> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -50,16 +56,15 @@ class MobileMockup extends StatelessWidget {
             Expanded(
                 // flex: 6,
                 child: VxBox(
-              child:
-                  "You Have found an easter egg 💙"
-                      .text
-                      .semiBold
-                      .color(ColorsX.whiteWithOpacity)
-                      .size(TextSize.instance.size6)
-                      .center
-                      .make()
-                      .hide(isVisible: easterEggVisibility)
-                      .centered(),
+              child: "You Have found an easter egg 💙"
+                  .text
+                  .semiBold
+                  .color(ColorsX.whiteWithOpacity)
+                  .size(TextSize.instance.size6)
+                  .center
+                  .make()
+                  .hide(isVisible: widget.easterEggVisibility)
+                  .centered(),
             )
                     .withRounded(value: 20)
                     .neumorphic(
@@ -68,11 +73,7 @@ class MobileMockup extends StatelessWidget {
                       elevation: 10,
                     )
                     .make()
-                    .pOnly(
-                        top: 15,
-                        left: 20,
-                        right: 20,
-                        bottom: 10)),
+                    .pOnly(top: 15, left: 20, right: 20, bottom: 10)),
             VxBox()
                 .height(50)
                 .width(50)
@@ -82,7 +83,7 @@ class MobileMockup extends StatelessWidget {
                   curve: VxCurve.concave,
                   elevation: 5,
                 )
-                .make(key: _mobileHomeButtonKey)
+                .make(key: widget._mobileHomeButtonKey)
                 .pOnly(left: 20, right: 20, bottom: 10)
                 .objectBottomCenter()
                 .showCursorOnHover
@@ -101,4 +102,3 @@ class MobileMockup extends StatelessWidget {
     );
   }
 }
-

@@ -11,7 +11,7 @@ class ProjectWorks extends StatelessWidget {
     required this.isMobile,
     required GlobalKey<State<StatefulWidget>> maximizeButtonProjectPageKey,
     required GlobalKey<State<StatefulWidget>> minimizeButtonProjectPageKey,
-  })  : _maximizeButtonProjectPageKey = maximizeButtonProjectPageKey,
+  })   : _maximizeButtonProjectPageKey = maximizeButtonProjectPageKey,
         _minimizeButtonProjectPageKey = minimizeButtonProjectPageKey,
         super(key: key);
 
@@ -25,7 +25,7 @@ class ProjectWorks extends StatelessWidget {
       elevation: 10,
       color: ColorsX.blackWithOpacity,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Stack(
         children: [
@@ -94,7 +94,12 @@ class ProjectWorks extends StatelessWidget {
                   .width(60)
                   .make()
                   .pSymmetric(v: 5),
-            ].vStack().p20(),
+            ]
+                .vStack(
+                  alignment: MainAxisAlignment.spaceEvenly,
+                  crossAlignment: CrossAxisAlignment.start,
+                )
+                .p20(),
           ),
           Positioned(
             top: 70,
@@ -334,7 +339,10 @@ class ProjectWorks extends StatelessWidget {
                   launch('https://github.com/ketanchoyal?tab=repositories');
                 }).make(),
               ]
-                  .vStack(alignment: MainAxisAlignment.spaceEvenly)
+                  .vStack(
+                    alignment: MainAxisAlignment.spaceEvenly,
+                    crossAlignment: CrossAxisAlignment.start,
+                  )
                   .scrollVertical()
                   .p(20),
             ),

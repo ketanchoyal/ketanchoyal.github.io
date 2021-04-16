@@ -33,7 +33,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
         elevation: 10,
         color: ColorsX.blackWithOpacity,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: SingleChildScrollView(
           child: Container(
