@@ -361,7 +361,7 @@ class _MobileHomepageState extends State<MobileHomepage>
                                     ],
                                   ).p12(),
                                 ],
-                              ).p32(),
+                              ).p16(),
                               VxBox().height(30).make(),
                               AutoSizeText.rich(
                                 TextSpan(

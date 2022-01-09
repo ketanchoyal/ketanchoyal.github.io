@@ -11,7 +11,7 @@ class ProjectWorks extends StatelessWidget {
     required this.isMobile,
     required GlobalKey<State<StatefulWidget>> maximizeButtonProjectPageKey,
     required GlobalKey<State<StatefulWidget>> minimizeButtonProjectPageKey,
-  })   : _maximizeButtonProjectPageKey = maximizeButtonProjectPageKey,
+  })  : _maximizeButtonProjectPageKey = maximizeButtonProjectPageKey,
         _minimizeButtonProjectPageKey = minimizeButtonProjectPageKey,
         super(key: key);
 
@@ -108,6 +108,51 @@ class ProjectWorks extends StatelessWidget {
             bottom: 0,
             child: SingleChildScrollView(
               child: [
+                Card(
+                  elevation: 10,
+                  color: ColorsX.gray.withOpacity(0.7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: [
+                    "Sub Track"
+                        .richText
+                        .color(ColorsX.red)
+                        .semiBold
+                        .size(TextSize.instance.size7)
+                        .make()
+                        .pOnly(bottom: 5),
+                    "Subscription Tracker app made on Flutter Framework using Firebase as backend with local storage support. This project have multiple branches on github with different state management (Riverpod and Provider). \n\nThis app is a subscription tracker app where user can add, edit, delete subscription and also can see the total amount of subscription. This app is also a demo of how to use Riverpod and Provider to manage state in Flutter."
+                        .richText
+                        .maxLines(isMobile ? 10 : 7)
+                        .size(TextSize.instance.size5)
+                        .color(ColorsX.white)
+                        .make()
+                        .pOnly(left: 5),
+                    [
+                      Image.asset(Images.gitHubDart)
+                          .box
+                          .size(40, 40)
+                          .make()
+                          .tooltip("Flutter App")
+                          .click(
+                            () {
+                              launch(
+                                  'https://github.com/ketanchoyal/Sub-Track');
+                            },
+                          )
+                          .make()
+                          .p2()
+                          .moveUpOnHover
+                          .showCursorOnHover,
+                    ]
+                        .hStack(
+                          alignment: MainAxisAlignment.end,
+                          crossAlignment: CrossAxisAlignment.end,
+                        )
+                        .pOnly(top: 10, left: 10),
+                  ].vStack(alignment: MainAxisAlignment.start).p(10),
+                ).w(context.screenWidth * (isMobile ? 0.8 : 0.6)).centered(),
                 Card(
                   elevation: 10,
                   color: ColorsX.gray.withOpacity(0.7),

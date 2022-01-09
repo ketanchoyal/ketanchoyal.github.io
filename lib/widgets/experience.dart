@@ -24,7 +24,7 @@ class Experience extends StatelessWidget {
       VxBox().height(10).make(),
       [
         [
-          "Mits Infotech"
+          "Datomar Labs"
               .text
               .color(ColorsX.whiteWithOpacity)
               .semiBold
@@ -42,7 +42,7 @@ class Experience extends StatelessWidget {
           axisSize: MainAxisSize.min,
           crossAlignment: CrossAxisAlignment.start,
         ),
-        "June 2019 to Nov 2019"
+        "May 2021 to Present"
             .text
             .color(ColorsX.whiteWithOpacity)
             .semiBold
@@ -120,7 +120,40 @@ class Experience extends StatelessWidget {
         crossAlignment: CrossAxisAlignment.start,
         alignment: MainAxisAlignment.spaceBetween,
       ),
-      VxBox().height(20).make(),
+      VxBox().height(10).make(),
+      [
+        [
+          "Mits Infotech"
+              .text
+              .color(ColorsX.whiteWithOpacity)
+              .semiBold
+              .size(TextSize.instance.size5)
+              .make()
+              .pOnly(right: 15),
+          "Flutter Developer"
+              .text
+              .color(ColorsX.whiteWithOpacity)
+              .hairLine
+              .size(TextSize.instance.size3)
+              .make()
+              .pOnly(right: 15),
+        ].column(
+          axisSize: MainAxisSize.min,
+          crossAlignment: CrossAxisAlignment.start,
+        ),
+        "Jan 2019 to Nov 2019"
+            .text
+            .color(ColorsX.whiteWithOpacity)
+            .semiBold
+            .size(TextSize.instance.size2)
+            .make()
+            .pOnly(right: 15),
+      ].row(
+        axisSize: MainAxisSize.max,
+        crossAlignment: CrossAxisAlignment.start,
+        alignment: MainAxisAlignment.spaceBetween,
+      ),
+      VxBox().height(10).make(),
     ].vStack(
       alignment: MainAxisAlignment.spaceEvenly,
       crossAlignment: CrossAxisAlignment.start,

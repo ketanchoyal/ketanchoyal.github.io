@@ -358,7 +358,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                                     ],
                                   ).p12(),
                                 ],
-                              ).p32(),
+                              ).p16(),
                               VxBox().height(30).make(),
                               AutoSizeText.rich(
                                 TextSpan(

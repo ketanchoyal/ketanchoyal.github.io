@@ -238,7 +238,7 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        "_Kitchener, CA"
+                        "_London, CA"
                             .richText
                             // .text
                             .bold
