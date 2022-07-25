@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -21,7 +20,7 @@ class MeasureSize extends StatefulWidget {
 class _MeasureSizeState extends State<MeasureSize> {
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
     return Container(
       color: Colors.transparent,
       key: widgetKey,

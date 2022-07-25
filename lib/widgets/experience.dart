@@ -24,6 +24,39 @@ class Experience extends StatelessWidget {
       VxBox().height(10).make(),
       [
         [
+          "Recipe Unlimited"
+              .text
+              .color(ColorsX.whiteWithOpacity)
+              .semiBold
+              .size(TextSize.instance.size5)
+              .make()
+              .pOnly(right: 15),
+          "Flutter Developer"
+              .text
+              .color(ColorsX.whiteWithOpacity)
+              .hairLine
+              .size(TextSize.instance.size3)
+              .make()
+              .pOnly(right: 15),
+        ].column(
+          axisSize: MainAxisSize.min,
+          crossAlignment: CrossAxisAlignment.start,
+        ),
+        "Feb 2022 to Present"
+            .text
+            .color(ColorsX.whiteWithOpacity)
+            .semiBold
+            .size(TextSize.instance.size2)
+            .make()
+            .pOnly(right: 15),
+      ].row(
+        axisSize: MainAxisSize.max,
+        crossAlignment: CrossAxisAlignment.start,
+        alignment: MainAxisAlignment.spaceBetween,
+      ),
+      VxBox().height(10).make(),
+      [
+        [
           "Datomar Labs"
               .text
               .color(ColorsX.whiteWithOpacity)
@@ -42,7 +75,7 @@ class Experience extends StatelessWidget {
           axisSize: MainAxisSize.min,
           crossAlignment: CrossAxisAlignment.start,
         ),
-        "May 2021 to Present"
+        "May 2021 to Feb 2022"
             .text
             .color(ColorsX.whiteWithOpacity)
             .semiBold
