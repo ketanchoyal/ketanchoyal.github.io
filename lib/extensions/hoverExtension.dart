@@ -1,7 +1,6 @@
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
-
-import 'package:flutterPortfolio/Extensions/moveUpOnHover.dart';
+import 'package:flutterPortfolio/extensions/moveUpOnHover.dart';
 
 extension HoverExtensions on Widget {
   // Get a regerence to the body of the view
