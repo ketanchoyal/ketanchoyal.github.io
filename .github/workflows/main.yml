@@ -7,7 +7,7 @@ jobs:
   build_deploy:
     #if conditional to prevent a job from running
     if: (github.base_ref == 'dev' || (github.event_name == 'pull_request' || github.event_name == 'push'))
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     #Identifies any jobs that must complete successfully before this job will run.
     # needs: [drive_ios,drive_android,test]
     name: Build web
