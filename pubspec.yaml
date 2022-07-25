@@ -14,10 +14,10 @@ dependencies:
   flutter:
     sdk: flutter
   velocity_x: ^3.5.1
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
   responsive_framework: ^0.2.0
-  google_fonts: ^2.2.0
-  url_launcher: ^6.0.3
+  google_fonts: ^3.0.1
+  url_launcher: ^6.1.5
   auto_size_text: ^3.0.0
 
 dev_dependencies:

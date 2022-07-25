@@ -57,7 +57,7 @@
     },
     {
       "name": "cupertino_icons",
-      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.2",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -99,7 +99,7 @@
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.2.0",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/google_fonts-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -195,7 +195,7 @@
     },
     {
       "name": "plugin_platform_interface",
-      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.0.0",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -261,9 +261,21 @@
     },
     {
       "name": "url_launcher",
-      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher-6.0.3",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher-6.1.5",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_android-6.0.17",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_ios-6.0.17",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "url_launcher_linux",
@@ -279,7 +291,7 @@
     },
     {
       "name": "url_launcher_platform_interface",
-      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_platform_interface-2.0.2",
+      "rootUri": "file:///Users/ketanchoyal/.pub-cache/hosted/pub.dartlang.org/url_launcher_platform_interface-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -332,7 +344,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-07-25T13:29:58.395356Z",
+  "generated": "2022-07-25T18:02:40.244150Z",
   "generator": "pub",
   "generatorVersion": "2.17.5"
 }
