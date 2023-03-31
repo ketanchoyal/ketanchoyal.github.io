@@ -108,7 +108,7 @@ class Experience extends StatelessWidget {
           axisSize: MainAxisSize.min,
           crossAlignment: CrossAxisAlignment.start,
         ),
-        "Mar 2021 to Present"
+        "Mar 2021 to May 2022"
             .text
             .color(ColorsX.whiteWithOpacity)
             .semiBold
@@ -141,7 +141,7 @@ class Experience extends StatelessWidget {
           axisSize: MainAxisSize.min,
           crossAlignment: CrossAxisAlignment.start,
         ),
-        "2020 to Present"
+        "June 2020 to Jan 2021"
             .text
             .color(ColorsX.whiteWithOpacity)
             .semiBold

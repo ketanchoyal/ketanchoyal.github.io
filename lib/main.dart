@@ -3,8 +3,6 @@ import 'package:flutterPortfolio/pages/Homepage.dart';
 import 'package:flutterPortfolio/resources/resources.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterPortfolio/resources/colors.dart';
-import 'package:flutterPortfolio/resources/images.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
