@@ -287,7 +287,7 @@ class _SideBarMobileState extends State<SideBarMobile> {
                             .p(5)
                             .moveUpOnHover,
                         // WidthBox(10),
-                        "_London, CA"
+                        "_Kitchener, CA"
                             .richText
                             // .text
                             .bold

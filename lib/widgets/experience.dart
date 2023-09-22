@@ -31,7 +31,7 @@ class Experience extends StatelessWidget {
               .size(TextSize.instance.size5)
               .make()
               .pOnly(right: 15),
-          "Flutter Developer"
+          "Sr. Full Stack Developer"
               .text
               .color(ColorsX.whiteWithOpacity)
               .hairLine
