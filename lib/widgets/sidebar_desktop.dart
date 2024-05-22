@@ -101,19 +101,19 @@ class _SideBarDesktopState extends State<SideBarDesktop> {
                   // softWrap: true,
                   TextSpan(
                     children: <TextSpan>[
-                      '_Mobile'
+                      '_Full'
                           .textSpan
                           .semiBold
                           .color(ColorsX.blackWithOpacity)
                           // .size(TextSize.instance.size5)
                           .make(),
-                      'A'
+                      'S'
                           .textSpan
                           .semiBold
                           .color(ColorsX.red)
                           // .size(TextSize.instance.size5)
                           .make(),
-                      'pp'
+                      'tack'
                           .textSpan
                           .semiBold
                           .color(ColorsX.blackWithOpacity)

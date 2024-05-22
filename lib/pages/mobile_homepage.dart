@@ -215,7 +215,7 @@ class _MobileHomepageState extends State<MobileHomepage>
                                   .pSymmetric(v: 5),
                               VxBox().height(20).make(),
                               about.text
-                                  .maxLines(5)
+                                  .maxLines(10)
                                   .color(ColorsX.whiteWithOpacity)
                                   .semiBold
                                   .size(TextSize.instance.size5)

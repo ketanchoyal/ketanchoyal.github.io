@@ -212,7 +212,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                                   .pSymmetric(v: 5),
                               VxBox().height(20).make(),
                               about.text
-                                  .maxLines(4)
+                                  .maxLines(8)
                                   .color(ColorsX.whiteWithOpacity)
                                   .semiBold
                                   .size(TextSize.instance.size5)
