@@ -63,19 +63,21 @@ export async function getFeaturedProjects(): Promise<Project[]> {
     }
 
     const repos = await getUserRepos("ketanchoyal");
-    
+
     // Filter and sort featured repos based on:
     // 1. Has at least one relevant topic
     // 2. Sort by stars
     // 3. Take top 5 repos
     const featured = repos
-      .filter(repo => 
-        repo.topics.some(topic => relevantTopics.includes(topic.toLowerCase())) ||
-        repo.stargazers_count > 40 // Include highly starred repos even without relevant topics
+      .filter(
+        (repo) =>
+          repo.topics.some((topic) =>
+            relevantTopics.includes(topic.toLowerCase())
+          ) || repo.stargazers_count > 10 // Include highly starred repos even without relevant topics
       )
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 5)
-      .map(repo => ({
+      .slice(0, 10)
+      .map((repo) => ({
         id: repo.id,
         name: repoNameToTitle(repo.name),
         description: repo.description || "No description available",
@@ -85,7 +87,7 @@ export async function getFeaturedProjects(): Promise<Project[]> {
         forks: repo.forks_count,
         language: repo.language || "Unknown",
         topics: repo.topics || [],
-        isLive: true
+        isLive: true,
       }));
 
     return featured.length > 0 ? featured : FALLBACK;
@@ -100,26 +102,28 @@ const FALLBACK_PROJECTS: Project[] = [
   {
     id: 1,
     name: "Our E-School",
-    description: "A mobile app created using Flutter Framework for School management.",
+    description:
+      "A mobile app created using Flutter Framework for School management.",
     url: "https://github.com/ketanchoyal/Our-E-School",
     demoUrl: null,
     stars: 504,
     forks: 292,
     language: "Dart",
     topics: ["Flutter", "Firebase", "Dart"],
-    isLive: false
+    isLive: false,
   },
   {
     id: 2,
     name: "Extended Navbar Scaffold",
-    description: "A Custom Extended Scaffold with Expandable and Floating Navigation Bar.",
+    description:
+      "A Custom Extended Scaffold with Expandable and Floating Navigation Bar.",
     url: "https://github.com/ketanchoyal/extended_navbar_scaffold",
     demoUrl: null,
     stars: 141,
     forks: 39,
     language: "Dart",
     topics: ["Flutter", "Dart", "UI Components"],
-    isLive: false
+    isLive: false,
   },
   {
     id: 3,
@@ -131,7 +135,7 @@ const FALLBACK_PROJECTS: Project[] = [
     forks: 60,
     language: "Dart",
     topics: ["Flutter", "MapBox", "Dart"],
-    isLive: false
+    isLive: false,
   },
   {
     id: 4,
@@ -143,7 +147,7 @@ const FALLBACK_PROJECTS: Project[] = [
     forks: 3,
     language: "Dart",
     topics: ["Flutter", "Dart", "SQLite"],
-    isLive: false
+    isLive: false,
   },
   {
     id: 5,
@@ -155,6 +159,6 @@ const FALLBACK_PROJECTS: Project[] = [
     forks: 2,
     language: "Dart",
     topics: ["Flutter", "HealthKit", "iOS"],
-    isLive: false
-  }
+    isLive: false,
+  },
 ];

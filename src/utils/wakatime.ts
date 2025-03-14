@@ -1,141 +1,216 @@
-interface WakaTimeResponse {
-  data: {
-    languages: Array<{
-      name: string;
-      percent: number;
-      total_seconds: number;
-    }>;
-    editors: Array<{
-      name: string;
-      percent: number;
-      total_seconds: number;
-    }>;
-    grand_total: {
-      total_seconds: number;
-      daily_average: number;
-      human_readable_total: string;
-      human_readable_daily_average: string;
-    };
-  };
-}
+import type {
+  WakaTimeShareResponse,
+  WakaTimeActivityResponse,
+  WakaTimeDailyActivityResponse,
+  CodingStats,
+  WakaTimeDataItem,
+  WakaTimeCategory,
+  WakaTimeDailyData,
+  SimpleItem,
+  WakaTimeDailyActivity,
+} from "@/types/wakatime";
+import { FALLBACK_DATA } from "@/data/fallback-coding-stats";
+import {
+  MOBILE_LANGUAGES,
+  PACKAGE_LANGUAGES,
+  WEB_LANGUAGES,
+} from "@/data/development-categories";
 
-export interface CodingStats {
-  totalTime: string;
-  dailyAverage: string;
-  topLanguages: Array<{
-    name: string;
-    percent: number;
-  }>;
-  recentActivity: {
-    categories: Array<{
-      name: string;
-      percent: number;
-    }>;
-    languages: Array<{
-      name: string;
-      percent: number;
-    }>;
-    editors: Array<{
-      name: string;
-      percent: number;
-    }>;
-  };
-}
-
-// Default stats as fallback
-const DEFAULT_STATS: CodingStats = {
-  totalTime: '10000+ hours',
-  dailyAverage: '8+ hours',
-  topLanguages: [
-    { name: 'Dart', percent: 65 },
-    { name: 'TypeScript', percent: 15 },
-    { name: 'Swift', percent: 10 },
-    { name: 'JavaScript', percent: 5 },
-    { name: 'Python', percent: 5 }
-  ],
-  recentActivity: {
-    categories: [
-      { name: 'Mobile Development', percent: 65 },
-      { name: 'Full Stack Development', percent: 20 },
-      { name: 'Code Review', percent: 10 },
-      { name: 'Documentation', percent: 5 }
-    ],
-    languages: [
-      { name: 'Dart', percent: 70 },
-      { name: 'TypeScript', percent: 15 },
-      { name: 'Swift', percent: 10 },
-      { name: 'JavaScript', percent: 3 },
-      { name: 'Python', percent: 2 }
-    ],
-    editors: [
-      { name: 'VS Code', percent: 60 },
-      { name: 'Android Studio', percent: 25 },
-      { name: 'Xcode', percent: 15 }
-    ]
-  }
+// WakaTime API URLs
+const WAKATIME_BASE_URL = "https://wakatime.com/share/@ketanchoyal";
+const WAKATIME_URLS = {
+  languages: `${WAKATIME_BASE_URL}/b937b52b-84cd-46df-a39b-3a7a32814103.json`,
+  activity: `${WAKATIME_BASE_URL}/f7eefa9d-d2f3-4159-bc9a-d1fc6990d045.json`,
+  editors: `${WAKATIME_BASE_URL}/9d72ac70-7a83-44db-8f6b-723274db360a.json`,
+  dailyActivity: `${WAKATIME_BASE_URL}/903c2445-765a-4768-97e4-4e5a373dd47c.json`,
 };
 
-export async function getWakaTimeStats(): Promise<CodingStats> {
+async function fetchWakaTimeData<T>(url: string): Promise<T> {
   try {
-    const apiKey = process.env.NEXT_PUBLIC_WAKATIME_API_KEY;
-    if (!apiKey) {
-      console.warn('WakaTime API key not found');
-      return DEFAULT_STATS;
-    }
-
-    const response = await fetch('https://wakatime.com/api/v1/users/current/stats/last_7_days', {
+    console.log(`Fetching WakaTime data from ${url}`);
+    const response = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${apiKey}`
-      }
+        Accept: "application/json",
+        "User-Agent": "Portfolio-Website",
+      },
+      next: {
+        revalidate: 3600, // Cache for 1 hour
+      },
     });
 
     if (!response.ok) {
-      console.error('Failed to fetch WakaTime stats:', response.status);
-      return DEFAULT_STATS;
+      console.error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Failed to fetch WakaTime data: ${response.statusText}`);
     }
 
-    const stats: WakaTimeResponse = await response.json();
+    const data = await response.json();
+    
+    // Log the raw response for debugging
+    console.log(`Raw WakaTime API response from ${url}:`, data);
 
-    // If the API response doesn't match our expected format, return default stats
-    if (!stats.data || !stats.data.languages || !stats.data.editors || !stats.data.grand_total) {
-      console.warn('WakaTime data format mismatch');
-      return DEFAULT_STATS;
+    // Check if the response has the expected structure
+    if (!data) {
+      console.error("Empty response from WakaTime API");
+      throw new Error("Empty response from WakaTime API");
     }
+
+    // For daily activity data, the structure is different
+    if (url.includes("903c2445-765a")) { // Daily activity URL
+      console.log("Processing daily activity data:", data);
+      if (!data.days) {
+        console.error("Missing 'days' property in daily activity data:", data);
+        throw new Error("Invalid daily activity data format: Missing 'days' property");
+      }
+      return data as T;
+    }
+
+    // For other endpoints, check for the data property
+    if (!data.data) {
+      console.error("Missing 'data' property in response:", data);
+      throw new Error(`Invalid WakaTime data format: Missing 'data' property in response`);
+    }
+
+    return data;
+  } catch (error) {
+    console.error(`Error fetching WakaTime data from ${url}:`, error);
+    console.error("Stack trace:", (error as Error).stack);
+    throw error;
+  }
+}
+
+export async function getWakaTimeStats(): Promise<CodingStats> {
+  try {
+    // Log which URLs we're fetching from
+    console.log("Fetching WakaTime data from URLs:", {
+      languages: WAKATIME_URLS.languages,
+      activity: WAKATIME_URLS.activity,
+      editors: WAKATIME_URLS.editors,
+      dailyActivity: WAKATIME_URLS.dailyActivity,
+    });
+
+    // Fetch all WakaTime data in parallel with proper typing
+    const [shareData, activityData, editorsData, codingActivityData] =
+      await Promise.all([
+        fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.languages),
+        fetchWakaTimeData<WakaTimeActivityResponse>(WAKATIME_URLS.activity),
+        fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.editors),
+        fetchWakaTimeData<WakaTimeDailyActivityResponse>(WAKATIME_URLS.dailyActivity),
+      ]);
+
+    // Log successful data fetching and data shapes
+    console.log("Successfully fetched all WakaTime data:", {
+      shareDataShape: shareData?.data?.length,
+      activityDataShape: activityData?.data?.grand_total,
+      editorsDataShape: editorsData?.data?.length,
+      codingActivityDataShape: codingActivityData?.days?.length,
+    });
+
+    // Process daily activity data
+    const dailyActivity = codingActivityData.days
+      .filter(day => day.total > 0)
+      .map(day => ({
+        date: day.date,
+        total: day.total,
+        categories: day.categories.reduce((acc, cat) => acc + cat.total, 0),
+      }))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    // Calculate GitHub-style stats
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    // Calculate current streak
+    let currentStreak = 0;
+    for (let i = 0; i < dailyActivity.length; i++) {
+      const date = new Date(dailyActivity[i].date);
+      const expectedDate = new Date(now);
+      expectedDate.setDate(now.getDate() - i);
+      
+      if (date.toDateString() !== expectedDate.toDateString() || dailyActivity[i].total === 0) {
+        break;
+      }
+      currentStreak++;
+    }
+
+    // Calculate longest streak
+    let longestStreak = 0;
+    let currentStreakCount = 0;
+    let lastDate: Date | null = null;
+
+    dailyActivity.forEach(day => {
+      const date = new Date(day.date);
+      if (!lastDate) {
+        currentStreakCount = 1;
+      } else {
+        const diffDays = Math.floor((lastDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+          currentStreakCount++;
+        } else {
+          currentStreakCount = 1;
+        }
+      }
+      longestStreak = Math.max(longestStreak, currentStreakCount);
+      lastDate = date;
+    });
+
+    // Calculate total contributions and yearly stats
+    const totalContributions = dailyActivity.length;
+    const oneYearAgo = new Date(now);
+    oneYearAgo.setFullYear(now.getFullYear() - 1);
+    
+    const contributionsLastYear = dailyActivity.filter(
+      day => new Date(day.date) > oneYearAgo
+    ).length;
+
+    // Calculate average hours per day
+    const totalHours = dailyActivity.reduce((acc, day) => acc + day.total / 3600, 0);
+    const averageHoursPerDay = totalHours / Math.max(dailyActivity.length, 1);
+
+    // Find the best day
+    const bestDay = dailyActivity[0];
+
+    // Process language data
+    const languages = shareData.data
+      .filter(lang => lang.name && lang.percent > 0)
+      .map(lang => ({
+        name: lang.name,
+        percent: lang.percent,
+        color: lang.color || "#858585",
+        text: lang.text || null,
+      }))
+      .sort((a, b) => b.percent - a.percent);
+
+    // Process editor data
+    const editors = editorsData.data
+      .filter(editor => editor.name && editor.percent > 0)
+      .map(editor => ({
+        name: editor.name,
+        percent: editor.percent,
+        color: editor.color || "#858585",
+        text: editor.text || null,
+      }))
+      .sort((a, b) => b.percent - a.percent);
 
     return {
-      totalTime: stats.data.grand_total.human_readable_total,
-      dailyAverage: stats.data.grand_total.human_readable_daily_average,
-      topLanguages: stats.data.languages
-        .sort((a, b) => b.percent - a.percent)
-        .slice(0, 5)
-        .map(lang => ({
-          name: lang.name,
-          percent: Math.round(lang.percent * 10) / 10
-        })),
-      recentActivity: {
-        categories: [
-          { name: 'Mobile Development', percent: 65 },
-          { name: 'Full Stack Development', percent: 20 },
-          { name: 'Code Review', percent: 10 },
-          { name: 'Documentation', percent: 5 }
-        ],
-        languages: stats.data.languages
-          .sort((a, b) => b.percent - a.percent)
-          .slice(0, 5)
-          .map(lang => ({
-            name: lang.name,
-            percent: Math.round(lang.percent * 10) / 10
-          })),
-        editors: stats.data.editors
-          .sort((a, b) => b.percent - a.percent)
-          .map(editor => ({
-            name: editor.name,
-            percent: Math.round(editor.percent * 10) / 10
-          }))
-      }
+      totalHours,
+      languages,
+      editors,
+      dailyActivity,
+      bestDay: bestDay ? {
+        date: bestDay.date,
+        total: bestDay.total,
+        categories: bestDay.categories,
+      } : null,
+      isLive: true,
+      currentStreak,
+      longestStreak,
+      totalContributions,
+      contributionsLastYear,
+      averageHoursPerDay,
     };
   } catch (error) {
-    console.error('Error fetching WakaTime stats:', error);
-    return DEFAULT_STATS;
+    console.error("Error in getWakaTimeStats:", error);
+    throw error;
   }
 }

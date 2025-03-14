@@ -3,9 +3,11 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 import CodingStats from '@/components/CodingStats';
-import { getFeaturedProjects, type Project } from '@/utils/github';
-import { getWakaTimeStats, type CodingStats as CodingStatsType } from '@/utils/wakatime';
+import { getFeaturedProjects } from '@/utils/github';
+import { getWakaTimeStats } from '@/utils/wakatime';
 import { FiLoader } from 'react-icons/fi';
+import { Project } from '@/types/github';
+import { CodingStats as CodingStatsType } from '@/types/wakatime';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -35,7 +37,7 @@ export async function getStaticProps() {
     ]);
 
     console.log('WakaTime stats:', codingStats);
-    console.log('GitHub projects:', projects);
+    // console.log('GitHub projects:', projects);
 
     return {
       props: {

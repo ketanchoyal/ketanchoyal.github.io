@@ -5,10 +5,14 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 ## Tech Stack
 
 - **Framework**: Next.js 14
+- **Package Manager**: npm
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **Deployment**: Vercel (recommended)
+- **Charting**: Recharts
+- **GitHub**: Next.js GitHub API
+- **WakaTime**: WakaTime API
 
 ## Getting Started
 
