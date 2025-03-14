@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ProjectCard from '@/components/ProjectCard';
-import StaggerContainer from '@/components/StaggerContainer';
+import CodingStats from '@/components/CodingStats';
 import { getFeaturedProjects, type Project } from '@/utils/github';
+import { getWakaTimeStats, type CodingStats as CodingStatsType } from '@/utils/wakatime';
+import { FiLoader } from 'react-icons/fi';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -19,51 +21,78 @@ const stagger = {
   }
 };
 
-const staggerItem = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
-};
-
 interface HomeProps {
-  projects: Project[];
+  initialProjects: Project[];
+  initialCodingStats: CodingStatsType | null;
 }
 
 export async function getStaticProps() {
   try {
-    console.log('Fetching projects in getStaticProps...');
-    const projects = await getFeaturedProjects();
-    console.log('Projects fetched:', projects);
-    
+    console.log('Fetching data in getStaticProps...');
+    const [projects, codingStats] = await Promise.all([
+      getFeaturedProjects(),
+      getWakaTimeStats()
+    ]);
+
+    console.log('WakaTime stats:', codingStats);
+    console.log('GitHub projects:', projects);
+
     return {
       props: {
-        projects,
+        initialProjects: projects,
+        initialCodingStats: codingStats,
       },
-      // Revalidate every hour to keep project stats fresh
+      // Revalidate every hour
       revalidate: 3600,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
     return {
       props: {
-        projects: [],
+        initialProjects: [],
+        initialCodingStats: null,
       },
       revalidate: 3600,
     };
   }
 }
 
-export default function Home({ projects }: HomeProps) {
+export default function Home({ initialProjects, initialCodingStats }: HomeProps) {
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [codingStats, setCodingStats] = useState<CodingStatsType | null>(initialCodingStats);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    console.log('Rendered projects:', projects);
-  }, [projects]);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const [freshProjects, freshStats] = await Promise.all([
+          getFeaturedProjects(),
+          getWakaTimeStats()
+        ]);
+        setProjects(freshProjects);
+        setCodingStats(freshStats);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load latest data. Using cached data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Only fetch if we don't have initial data
+    if (initialProjects.length === 0 || !initialCodingStats) {
+      fetchData();
+    }
+  }, [initialProjects, initialCodingStats]);
 
   return (
     <>
       <Head>
-        <title>Ketan Choyal | Mobile Developer</title>
-        <meta name="description" content="Senior Full Stack Developer specializing in Flutter, React Native, and native mobile development" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ketan Choyal - Senior Full Stack Developer</title>
+        <meta name="description" content="Portfolio of Ketan Choyal - Senior Full Stack Developer specializing in Flutter and mobile development" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -82,11 +111,17 @@ export default function Home({ projects }: HomeProps) {
             >
               KC
             </motion.h1>
-            <StaggerContainer className="flex gap-6">
-              {['projects', 'expertise', 'about', 'contact'].map((item) => (
+            <motion.div 
+              variants={stagger}
+              initial="initial"
+              animate="animate"
+              className="flex gap-6"
+            >
+              {['projects', 'expertise', 'stats', 'about', 'contact'].map((item) => (
                 <motion.a
                   key={item}
                   href={`#${item}`}
+                  variants={fadeInUp}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="text-black dark:text-white hover:text-[#007AFF] dark:hover:text-[#0A84FF] transition-colors capitalize"
@@ -94,7 +129,7 @@ export default function Home({ projects }: HomeProps) {
                   {item}
                 </motion.a>
               ))}
-            </StaggerContainer>
+            </motion.div>
           </div>
         </motion.nav>
 
@@ -145,23 +180,30 @@ export default function Home({ projects }: HomeProps) {
                 className="max-w-3xl"
               >
                 <h2 className="text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]">Expertise</h2>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
                     { title: 'Mobile Development', items: ['Flutter', 'Dart', 'iOS Integration', 'Clean Architecture'] },
                     { title: 'Backend & Cloud', items: ['AWS Services', 'Firebase', 'RESTful APIs'] },
                     { title: 'UI/UX Design', items: ['Custom Widgets', 'Responsive Design', 'Animation'] },
                     { title: 'Tools & Practices', items: ['Git', 'CI/CD', 'Test-Driven Development'] }
-                  ].map((category) => (
+                  ].map((category, index) => (
                     <motion.div
                       key={category.title}
-                      variants={staggerItem}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      viewport={{ once: true }}
                       className="bg-white dark:bg-[#1C1C1E] rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <h3 className="text-xl font-semibold mb-4 text-black dark:text-white">{category.title}</h3>
                       <ul className="space-y-2">
-                        {category.items.map((item) => (
+                        {category.items.map((item, itemIndex) => (
                           <motion.li
                             key={item}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: itemIndex * 0.1 }}
+                            viewport={{ once: true }}
                             className="flex items-center gap-2"
                           >
                             <span className="w-2 h-2 bg-[#007AFF] rounded-full" />
@@ -171,12 +213,65 @@ export default function Home({ projects }: HomeProps) {
                       </ul>
                     </motion.div>
                   ))}
-                </StaggerContainer>
+                </div>
               </motion.div>
             </div>
           </section>
 
-          <section id="projects" className="py-16 px-4 bg-[#F2F2F7] dark:bg-[#1C1C1E]">
+          <section id="stats" className="py-16 px-4 bg-[#F2F2F7] dark:bg-[#1C1C1E]">
+            <div className="container mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]">Coding Activity</h2>
+                
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mb-8 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[...Array(3)].map((_, index) => (
+                      <motion.div
+                        key={`skeleton-${index}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-white dark:bg-[#1C1C1E] rounded-2xl p-6 shadow-sm"
+                      >
+                        <div className="h-8 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse mb-4" />
+                        <div className="space-y-2">
+                          <div className="h-4 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse" />
+                          <div className="h-4 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse w-2/3" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : codingStats ? (
+                  <CodingStats stats={codingStats} />
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-12 text-[#8E8E93] dark:text-[#98989D]"
+                  >
+                    No coding activity data available
+                  </motion.div>
+                )}
+              </motion.div>
+            </div>
+          </section>
+
+          <section id="projects" className="py-16 px-4">
             <div className="container mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -185,11 +280,52 @@ export default function Home({ projects }: HomeProps) {
                 viewport={{ once: true }}
               >
                 <h2 className="text-3xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]">Featured Projects</h2>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </StaggerContainer>
+                
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mb-8 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {loading ? (
+                    // Loading skeleton
+                    [...Array(6)].map((_, index) => (
+                      <motion.div
+                        key={`skeleton-${index}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-white dark:bg-[#1C1C1E] rounded-2xl overflow-hidden shadow-sm"
+                      >
+                        <div className="aspect-video bg-gray-100 dark:bg-[#2C2C2E] animate-pulse" />
+                        <div className="p-6 space-y-4">
+                          <div className="h-6 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse" />
+                          <div className="space-y-2">
+                            <div className="h-4 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse" />
+                            <div className="h-4 bg-gray-100 dark:bg-[#2C2C2E] rounded animate-pulse w-2/3" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))
+                  ) : (
+                    projects.map((project, index) => (
+                      <motion.div
+                        key={project.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <ProjectCard project={project} />
+                      </motion.div>
+                    ))
+                  )}
+                </div>
               </motion.div>
             </div>
           </section>

@@ -16,7 +16,7 @@ export default function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-3 rounded-full bg-[#F2F2F7] dark:bg-[#2C2C2E] shadow-lg hover:shadow-xl transition-all duration-300"
+      className="p-2.5 rounded-full bg-white/80 dark:bg-[#1C1C1E]/80 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-lg border border-gray-200 dark:border-gray-800"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: -20 }}
@@ -38,12 +38,12 @@ export default function ThemeToggle() {
           stiffness: 200,
           damping: 10
         }}
-        className="relative w-6 h-6 flex items-center justify-center"
+        className="relative w-5 h-5 flex items-center justify-center"
       >
         {theme === 'dark' ? (
-          <FiMoon className="w-6 h-6 text-[#98989D]" />
+          <FiMoon className="w-5 h-5 text-[#98989D]" />
         ) : (
-          <FiSun className="w-6 h-6 text-[#FF9F0A]" />
+          <FiSun className="w-5 h-5 text-[#FF9F0A]" />
         )}
       </motion.div>
     </motion.button>
