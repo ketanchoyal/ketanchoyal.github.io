@@ -3,11 +3,13 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import ProjectCard from '@/components/ProjectCard'
 import CodingStats from '@/components/CodingStats'
+import ContactSection from '@/components/ContactSection'
 import { getFeaturedProjects } from '@/utils/github'
 import { getWakaTimeStats } from '@/utils/wakatime'
 import { FiLoader } from 'react-icons/fi'
 import { Project } from '@/types/github'
 import { CodingStats as CodingStatsType } from '@/types/wakatime'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -101,7 +103,7 @@ export default function Home ({
         <title>Ketan Choyal - Senior Full Stack Developer</title>
         <meta
           name='description'
-          content='Portfolio of Ketan Choyal - Senior Full Stack Developer specializing in Flutter and mobile development'
+          content='Portfolio of Ketan Choyal - Senior Full Stack Developer specializing in Flutter, AWS, and TypeScript'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -121,27 +123,30 @@ export default function Home ({
             >
               KC
             </motion.h1>
-            <motion.div
-              variants={stagger}
-              initial='initial'
-              animate='animate'
-              className='flex gap-6'
-            >
-              {['projects', 'expertise', 'stats', 'about', 'contact'].map(
-                item => (
-                  <motion.a
-                    key={item}
-                    href={`#${item}`}
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className='text-black dark:text-white hover:text-[#007AFF] dark:hover:text-[#0A84FF] transition-colors capitalize'
-                  >
-                    {item}
-                  </motion.a>
-                )
-              )}
-            </motion.div>
+            <div className='flex items-center gap-6'>
+              <motion.div
+                variants={stagger}
+                initial='initial'
+                animate='animate'
+                className='flex gap-6'
+              >
+                {['projects', 'expertise', 'stats', 'about', 'contact'].map(
+                  item => (
+                    <motion.a
+                      key={item}
+                      href={`#${item}`}
+                      variants={fadeInUp}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className='text-black dark:text-white hover:text-[#007AFF] dark:hover:text-[#0A84FF] transition-colors capitalize'
+                    >
+                      {item}
+                    </motion.a>
+                  )
+                )}
+              </motion.div>
+              <ThemeToggle />
+            </div>
           </div>
         </motion.nav>
 
@@ -168,7 +173,7 @@ export default function Home ({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Senior Full Stack Developer
+                  Full Stack Developer
                 </motion.h2>
                 <motion.p
                   className='text-xl text-[#8E8E93] dark:text-[#98989D] leading-relaxed'
@@ -176,10 +181,35 @@ export default function Home ({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Specializing in Flutter development and creating exceptional
-                  mobile experiences. Currently exploring new AWS Services and
-                  looking to collaborate on Flutter Open-Source projects.
+                  Building scalable mobile and cloud solutions with Flutter,
+                  AWS, and TypeScript. Passionate about serverless architecture
+                  and creating exceptional user experiences.
                 </motion.p>
+                <motion.div
+                  className='flex gap-4 mt-8'
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-[#007AFF]/10 dark:bg-[#0A84FF]/10'>
+                    <span className='w-2 h-2 rounded-full bg-[#007AFF] dark:bg-[#0A84FF]' />
+                    <span className='text-[#007AFF] dark:text-[#0A84FF] font-medium'>
+                      Flutter
+                    </span>
+                  </div>
+                  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-[#32D74B]/10 dark:bg-[#30D158]/10'>
+                    <span className='w-2 h-2 rounded-full bg-[#32D74B] dark:bg-[#30D158]' />
+                    <span className='text-[#32D74B] dark:text-[#30D158] font-medium'>
+                      AWS
+                    </span>
+                  </div>
+                  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-[#BF5AF2]/10 dark:bg-[#C377FE]/10'>
+                    <span className='w-2 h-2 rounded-full bg-[#BF5AF2] dark:bg-[#C377FE]' />
+                    <span className='text-[#BF5AF2] dark:text-[#C377FE] font-medium'>
+                      TypeScript
+                    </span>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
           </section>
@@ -200,28 +230,37 @@ export default function Home ({
                   {[
                     {
                       title: 'Mobile Development',
+                      color: '#007AFF',
+                      darkColor: '#0A84FF',
                       items: [
-                        'Flutter',
-                        'Dart',
+                        'Flutter & Dart',
                         'iOS Integration',
-                        'Clean Architecture'
+                        'Clean Architecture',
+                        'State Management'
                       ]
                     },
                     {
-                      title: 'Backend & Cloud',
-                      items: ['AWS Services', 'Firebase', 'RESTful APIs']
-                    },
-                    {
-                      title: 'UI/UX Design',
+                      title: 'Cloud & Backend',
+                      color: '#32D74B',
+                      darkColor: '#30D158',
                       items: [
-                        'Custom Widgets',
-                        'Responsive Design',
-                        'Animation'
+                        'AWS Lambda',
+                        'DynamoDB',
+                        'API Gateway',
+                        'Serverless Framework'
                       ]
                     },
                     {
-                      title: 'Tools & Practices',
-                      items: ['Git', 'CI/CD', 'Test-Driven Development']
+                      title: 'Frontend & TypeScript',
+                      color: '#BF5AF2',
+                      darkColor: '#C377FE',
+                      items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
+                    },
+                    {
+                      title: 'DevOps & Tools',
+                      color: '#FF9F0A',
+                      darkColor: '#FFB340',
+                      items: ['GitHub Actions', 'AWS CDK', 'Docker', 'CI/CD']
                     }
                   ].map((category, index) => (
                     <motion.div
@@ -231,6 +270,10 @@ export default function Home ({
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
                       className='bg-white dark:bg-[#1C1C1E] rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300'
+                      style={{
+                        borderLeft: `4px solid ${category.color}`,
+                        borderLeftColor: `${category.color}`
+                      }}
                     >
                       <h3 className='text-xl font-semibold mb-4 text-black dark:text-white'>
                         {category.title}
@@ -245,7 +288,12 @@ export default function Home ({
                             viewport={{ once: true }}
                             className='flex items-center gap-2'
                           >
-                            <span className='w-2 h-2 bg-[#007AFF] rounded-full' />
+                            <span
+                              className='w-2 h-2 rounded-full'
+                              style={{
+                                backgroundColor: category.color
+                              }}
+                            />
                             <span className='text-[#8E8E93] dark:text-[#98989D]'>
                               {item}
                             </span>
@@ -270,19 +318,20 @@ export default function Home ({
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <h2 className='text-3xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]'>
-                  Coding Activity
-                </h2>
-
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className='mb-8 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                  >
-                    {error}
-                  </motion.div>
-                )}
+                <div className='flex items-center justify-between mb-12'>
+                  <h2 className='text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]'>
+                    Coding Activity
+                  </h2>
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className='text-sm text-red-600 dark:text-red-400'
+                    >
+                      {error}
+                    </motion.div>
+                  )}
+                </div>
 
                 {loading ? (
                   <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
@@ -341,8 +390,7 @@ export default function Home ({
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
                   {loading
-                    ? // Loading skeleton
-                      [...Array(6)].map((_, index) => (
+                    ? [...Array(6)].map((_, index) => (
                         <motion.div
                           key={`skeleton-${index}`}
                           initial={{ opacity: 0 }}
@@ -390,16 +438,19 @@ export default function Home ({
                 </h2>
                 <div className='prose dark:prose-invert max-w-none'>
                   <p className='text-lg text-[#8E8E93] dark:text-[#98989D] leading-relaxed'>
-                    As a Senior Full Stack Developer with a passion for mobile
-                    development, I specialize in creating intuitive and
-                    high-performance applications using Flutter and modern
-                    technologies. My work includes popular open-source projects
-                    and custom solutions for complex business needs.
+                    As a Full Stack Developer specializing in Flutter and AWS, I
+                    build scalable, serverless applications that deliver
+                    exceptional user experiences. My expertise spans mobile
+                    development with Flutter, cloud architecture with AWS, and
+                    modern web development using TypeScript and Next.js.
                   </p>
                   <p className='text-lg mt-4 text-[#8E8E93] dark:text-[#98989D] leading-relaxed'>
-                    I'm actively contributing to the Flutter community through
-                    open-source projects and always excited to collaborate on
-                    innovative mobile solutions.
+                    I'm passionate about serverless architecture and
+                    continuously exploring new AWS services to create efficient,
+                    cost-effective solutions. Currently contributing to the
+                    Flutter community through open-source projects and always
+                    excited to collaborate on innovative mobile and cloud
+                    solutions.
                   </p>
                 </div>
               </motion.div>
@@ -408,47 +459,24 @@ export default function Home ({
 
           <section
             id='contact'
-            className='py-16 px-4 bg-[#F2F2F7] dark:bg-[#1C1C1E]'
+            className='relative py-16 px-4 bg-[#F2F2F7] dark:bg-[#1C1C1E] overflow-hidden'
           >
-            <div className='container mx-auto'>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className='max-w-lg'
-              >
-                <h2 className='text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]'>
-                  Get in Touch
-                </h2>
-                <p className='text-lg mb-8 text-[#8E8E93] dark:text-[#98989D] leading-relaxed'>
-                  Looking to collaborate on Flutter projects or need help with
-                  mobile development? Let's connect and create something amazing
-                  together.
-                </p>
-                <motion.a
-                  href='https://github.com/ketanchoyal'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-block bg-[#007AFF] text-white px-6 py-2 rounded-full hover:opacity-90 transition-all duration-200'
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  View GitHub Profile
-                </motion.a>
-              </motion.div>
+            {/* Background gradients */}
+            <div className='absolute inset-0 -z-10'>
+              <div className='fixed -top-[40rem] left-[20rem] h-[60rem] w-[60rem] rounded-full bg-gradient-to-r from-[#007AFF] to-[#0A84FF] opacity-[0.03] blur-3xl dark:opacity-[0.06]' />
+              <div className='fixed -top-[30rem] right-[15rem] h-[50rem] w-[50rem] rounded-full bg-gradient-to-r from-[#32D74B] to-[#30D158] opacity-[0.03] blur-3xl dark:opacity-[0.06]' />
             </div>
+            <ContactSection />
           </section>
-        </main>
 
-        <footer className='py-8 px-4 text-center text-[#8E8E93] dark:text-[#98989D]'>
-          <div className='container mx-auto'>
-            <p>
-              {' '}
-              {new Date().getFullYear()} Ketan Choyal. All rights reserved.
-            </p>
-          </div>
-        </footer>
+          <footer className='py-8 px-4 text-center text-[#8E8E93] dark:text-[#98989D]'>
+            <div className='container mx-auto'>
+              <p>
+                {new Date().getFullYear()} Ketan Choyal. All rights reserved.
+              </p>
+            </div>
+          </footer>
+        </main>
       </div>
     </>
   )
