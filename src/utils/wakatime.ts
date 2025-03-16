@@ -44,7 +44,7 @@ async function fetchWakaTimeData<T>(url: string): Promise<T> {
     }
 
     const data = await response.json();
-    
+
     // Log the raw response for debugging
     console.log(`Raw WakaTime API response from ${url}:`, data);
 
@@ -55,11 +55,14 @@ async function fetchWakaTimeData<T>(url: string): Promise<T> {
     }
 
     // For daily activity data, the structure is different
-    if (url.includes("903c2445-765a")) { // Daily activity URL
+    if (url.includes("903c2445-765a")) {
+      // Daily activity URL
       console.log("Processing daily activity data:", data);
       if (!data.days) {
         console.error("Missing 'days' property in daily activity data:", data);
-        throw new Error("Invalid daily activity data format: Missing 'days' property");
+        throw new Error(
+          "Invalid daily activity data format: Missing 'days' property"
+        );
       }
       return data as T;
     }
@@ -67,7 +70,9 @@ async function fetchWakaTimeData<T>(url: string): Promise<T> {
     // For other endpoints, check for the data property
     if (!data.data) {
       console.error("Missing 'data' property in response:", data);
-      throw new Error(`Invalid WakaTime data format: Missing 'data' property in response`);
+      throw new Error(
+        `Invalid WakaTime data format: Missing 'data' property in response`
+      );
     }
 
     return data;
@@ -94,7 +99,9 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
         fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.languages),
         fetchWakaTimeData<WakaTimeActivityResponse>(WAKATIME_URLS.activity),
         fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.editors),
-        fetchWakaTimeData<WakaTimeDailyActivityResponse>(WAKATIME_URLS.dailyActivity),
+        fetchWakaTimeData<WakaTimeDailyActivityResponse>(
+          WAKATIME_URLS.dailyActivity
+        ),
       ]);
 
     // Log successful data fetching and data shapes
@@ -107,8 +114,8 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
 
     // Process daily activity data
     const dailyActivity = codingActivityData.days
-      .filter(day => day.total > 0)
-      .map(day => ({
+      .filter((day) => day.total > 0)
+      .map((day) => ({
         date: day.date,
         total: day.total,
         categories: day.categories.reduce((acc, cat) => acc + cat.total, 0),
@@ -126,8 +133,11 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
       const date = new Date(dailyActivity[i].date);
       const expectedDate = new Date(now);
       expectedDate.setDate(now.getDate() - i);
-      
-      if (date.toDateString() !== expectedDate.toDateString() || dailyActivity[i].total === 0) {
+
+      if (
+        date.toDateString() !== expectedDate.toDateString() ||
+        dailyActivity[i].total === 0
+      ) {
         break;
       }
       currentStreak++;
@@ -138,12 +148,14 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
     let currentStreakCount = 0;
     let lastDate: Date | null = null;
 
-    dailyActivity.forEach(day => {
+    dailyActivity.forEach((day) => {
       const date = new Date(day.date);
       if (!lastDate) {
         currentStreakCount = 1;
       } else {
-        const diffDays = Math.floor((lastDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.floor(
+          (lastDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+        );
         if (diffDays === 1) {
           currentStreakCount++;
         } else {
@@ -158,13 +170,16 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
     const totalContributions = dailyActivity.length;
     const oneYearAgo = new Date(now);
     oneYearAgo.setFullYear(now.getFullYear() - 1);
-    
+
     const contributionsLastYear = dailyActivity.filter(
-      day => new Date(day.date) > oneYearAgo
+      (day) => new Date(day.date) > oneYearAgo
     ).length;
 
     // Calculate average hours per day
-    const totalHours = dailyActivity.reduce((acc, day) => acc + day.total / 3600, 0);
+    const totalHours = dailyActivity.reduce(
+      (acc, day) => acc + day.total / 3600,
+      0
+    );
     const averageHoursPerDay = totalHours / Math.max(dailyActivity.length, 1);
 
     // Find the best day
@@ -172,8 +187,8 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
 
     // Process language data
     const languages = shareData.data
-      .filter(lang => lang.name && lang.percent > 0)
-      .map(lang => ({
+      .filter((lang) => lang.name && lang.percent > 0)
+      .map((lang) => ({
         name: lang.name,
         percent: lang.percent,
         color: lang.color || "#858585",
@@ -183,8 +198,8 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
 
     // Process editor data
     const editors = editorsData.data
-      .filter(editor => editor.name && editor.percent > 0)
-      .map(editor => ({
+      .filter((editor) => editor.name && editor.percent > 0)
+      .map((editor) => ({
         name: editor.name,
         percent: editor.percent,
         color: editor.color || "#858585",
@@ -197,13 +212,14 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
       languages,
       editors,
       dailyActivity,
-      bestDay: bestDay ? {
-        date: bestDay.date,
-        total: bestDay.total,
-        categories: bestDay.categories,
-      } : null,
+      bestDay: bestDay
+        ? {
+            date: bestDay.date,
+            total: bestDay.total,
+            categories: bestDay.categories,
+          }
+        : null,
       isLive: true,
-      currentStreak,
       longestStreak,
       totalContributions,
       contributionsLastYear,
@@ -211,6 +227,6 @@ export async function getWakaTimeStats(): Promise<CodingStats> {
     };
   } catch (error) {
     console.error("Error in getWakaTimeStats:", error);
-    throw error;
+    return FALLBACK_DATA;
   }
 }

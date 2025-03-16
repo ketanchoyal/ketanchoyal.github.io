@@ -73,10 +73,10 @@ export async function getFeaturedProjects(): Promise<Project[]> {
         (repo) =>
           repo.topics.some((topic) =>
             relevantTopics.includes(topic.toLowerCase())
-          ) || repo.stargazers_count > 10 // Include highly starred repos even without relevant topics
+          ) || repo.stargazers_count > 40 // Include highly starred repos even without relevant topics
       )
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 10)
+      .slice(0, 5)
       .map((repo) => ({
         id: repo.id,
         name: repoNameToTitle(repo.name),

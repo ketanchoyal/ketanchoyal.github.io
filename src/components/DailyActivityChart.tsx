@@ -1,154 +1,120 @@
-import { useMemo } from "react";
-import { Tooltip as ReactTooltip } from "react-tooltip";
+import { motion } from 'framer-motion'
+import {
+  Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts'
 
-interface ChartDataPoint {
-  date: string;
-  total: number;
-  categories?: number;
+interface DailyActivityData {
+  date: string
+  total: number
+  categories: number
 }
 
-interface Props {
-  data: ChartDataPoint[];
+interface ChartData {
+  date: string
+  fullDate: string
+  hours: number
+  month: string
 }
 
-const getActivityLevel = (hours: number): string => {
-  if (hours === 0) return "bg-gray-100 dark:bg-gray-800";
-  if (hours < 2) return "bg-blue-200 dark:bg-blue-900";
-  if (hours < 4) return "bg-blue-300 dark:bg-blue-700";
-  if (hours < 6) return "bg-blue-400 dark:bg-blue-600";
-  return "bg-blue-500 dark:bg-blue-500";
-};
+interface DailyActivityChartProps {
+  data: DailyActivityData[]
+}
 
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-const formatHours = (hours: number) => {
-  const h = Math.floor(hours);
-  const m = Math.round((hours - h) * 60);
-  return `${h}h ${m}m`;
-};
-
-const getDayLabels = () => {
-  return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, i) => (
-    <div key={day} className="text-xs text-gray-500 dark:text-gray-400" style={{ gridRow: i + 2 }}>
-      {day}
-    </div>
-  ));
-};
-
-const getMonthLabels = (weeks: ChartDataPoint[][]) => {
-  const months: { label: string; column: number }[] = [];
-  weeks.forEach((week, weekIndex) => {
-    const firstDay = week[0];
-    if (firstDay) {
-      const date = new Date(firstDay.date);
-      const month = date.toLocaleDateString("en-US", { month: "short" });
-      if (months.length === 0 || months[months.length - 1].label !== month) {
-        months.push({ label: month, column: weekIndex + 1 });
+export default function DailyActivityChart ({
+  data
+}: DailyActivityChartProps): JSX.Element {
+  const chartData: ChartData[] = data
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .map(day => {
+      const date = new Date(day.date)
+      return {
+        date: date.toISOString(),
+        fullDate: date.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        }),
+        hours: day.total / 3600,
+        month: date.toLocaleDateString('en-US', { month: 'short' })
       }
-    }
-  });
-  return months.map(({ label, column }) => (
-    <div
-      key={`${label}-${column}`}
-      className="text-xs text-gray-500 dark:text-gray-400"
-      style={{ gridColumn: column, gridRow: 1 }}
-    >
-      {label}
-    </div>
-  ));
-};
+    })
 
-export default function DailyActivityChart({ data }: Props) {
-  const weeks = useMemo(() => {
-    const sortedData = [...data].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-
-    const weeks: ChartDataPoint[][] = [];
-    let currentWeek: ChartDataPoint[] = [];
-
-    sortedData.forEach((day) => {
-      const dayOfWeek = new Date(day.date).getDay();
-
-      if (dayOfWeek === 0 && currentWeek.length > 0) {
-        weeks.push(currentWeek);
-        currentWeek = [];
-      }
-
-      currentWeek.push(day);
-
-      if (currentWeek.length === 7 || day === sortedData[sortedData.length - 1]) {
-        weeks.push(currentWeek);
-        currentWeek = [];
-      }
-    });
-
-    return weeks;
-  }, [data]);
+  // Get unique months with their first occurrence index
+  const uniqueMonths = Array.from(new Set(chartData.map(item => item.month)))
 
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="inline-grid gap-1 p-2" style={{ gridTemplateRows: "auto repeat(7, 1fr)" }}>
-        {/* Month labels */}
-        {getMonthLabels(weeks)}
-
-        {/* Day labels */}
-        <div className="grid gap-1 pr-2" style={{ gridRow: "2 / span 7", gridColumn: 1 }}>
-          {getDayLabels()}
-        </div>
-
-        {/* Activity grid */}
-        <div
-          className="grid gap-1"
-          style={{
-            gridRow: "2 / span 7",
-            gridColumn: "2 / span " + weeks.length,
-            gridTemplateRows: "repeat(7, 1fr)",
-            gridTemplateColumns: `repeat(${weeks.length}, 1fr)`,
-          }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className='h-64 w-full rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 p-6'
+    >
+      <ResponsiveContainer width='100%' height='100%'>
+        <AreaChart
+          data={chartData}
+          margin={{ top: 10, right: 16, left: 8, bottom: 10 }}
         >
-          {weeks.map((week, weekIndex) =>
-            Array.from({ length: 7 }).map((_, dayIndex) => {
-              const day = week[dayIndex];
-              const hours = day ? day.total / 3600 : 0;
-
-              return (
-                <div
-                  key={`${weekIndex}-${dayIndex}`}
-                  className={`h-3 w-3 rounded-sm transition-colors ${getActivityLevel(hours)}`}
-                  data-tooltip-id="activity-tooltip"
-                  data-tooltip-content={day ? `${formatDate(day.date)}: ${formatHours(hours)}` : "No activity"}
-                />
-              );
-            })
-          )}
-        </div>
-      </div>
-
-      <ReactTooltip
-        id="activity-tooltip"
-        place="top"
-        className="!bg-white !text-gray-900 dark:!bg-gray-800 dark:!text-white"
-      />
-
-      <div className="mt-2 flex items-center justify-end gap-2 text-sm text-gray-500 dark:text-gray-400">
-        <span>Less</span>
-        <div className="flex gap-1">
-          <div className="h-3 w-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
-          <div className="h-3 w-3 rounded-sm bg-blue-200 dark:bg-blue-900" />
-          <div className="h-3 w-3 rounded-sm bg-blue-300 dark:bg-blue-700" />
-          <div className="h-3 w-3 rounded-sm bg-blue-400 dark:bg-blue-600" />
-          <div className="h-3 w-3 rounded-sm bg-blue-500 dark:bg-blue-500" />
-        </div>
-        <span>More</span>
-      </div>
-    </div>
-  );
+          <defs>
+            <linearGradient id='colorHours' x1='0' y1='0' x2='0' y2='1'>
+              <stop offset='5%' stopColor='#007AFF' stopOpacity={0.3} />
+              <stop offset='95%' stopColor='#007AFF' stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis
+            dataKey='month'
+            stroke='#8E8E93'
+            fontSize={12}
+            fontWeight={500}
+            tickLine={false}
+            axisLine={false}
+            ticks={uniqueMonths}
+            minTickGap={30}
+            interval={'equidistantPreserveStart'}
+            dy={8}
+            padding={{ left: 16, right: 16 }}
+          />
+          <YAxis
+            stroke='#8E8E93'
+            fontSize={12}
+            fontWeight={500}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={value => `${value}h`}
+            dx={-8}
+            padding={{ top: 16, bottom: 16 }}
+          />
+          <Tooltip
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const value = payload[0].value as number
+                return (
+                  <div className='rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#1C1C1E]/90 p-4 shadow-lg backdrop-blur-xl backdrop-saturate-150'>
+                    <p className='text-base font-semibold text-[#1C1C1E] dark:text-white'>
+                      {payload[0].payload.fullDate}
+                    </p>
+                    <p className='mt-1 text-sm text-[#8E8E93] dark:text-[#98989D]'>
+                      {value.toFixed(1)}h
+                    </p>
+                  </div>
+                )
+              }
+              return null
+            }}
+          />
+          <Area
+            type='monotone'
+            dataKey='hours'
+            stroke='#007AFF'
+            strokeWidth={2}
+            fillOpacity={1}
+            fill='url(#colorHours)'
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </motion.div>
+  )
 }

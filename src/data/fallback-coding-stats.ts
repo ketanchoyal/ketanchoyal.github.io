@@ -48,18 +48,21 @@ export const FALLBACK_DATA: CodingStats = {
     },
   ],
   dailyActivity: Array.from({ length: 14 }, (_, i) => ({
-    date: new Date(Date.now() - (13 - i) * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    date: new Date(Date.now() - (13 - i) * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     total: Math.random() * 8 * 3600, // Random hours between 0-8 hours per day
     categories: Math.random() * 3600, // Random category time
   })),
   bestDay: {
-    date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     total: 8 * 3600, // 8 hours
     categories: 7.5 * 3600, // 7.5 hours in categories
   },
   isLive: false,
   // GitHub-style stats that reflect your active development work
-  currentStreak: 5, // 5 days current streak
   longestStreak: 14, // 14 days longest streak
   totalContributions: 312, // Total contributions
   contributionsLastYear: 280, // Contributions in the last year

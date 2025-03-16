@@ -1,10 +1,10 @@
 # Ketan Choyal's Portfolio
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS, featuring an iOS-inspired design system and focusing on Fullstack development showcase, I use Flutter as front end and AWS with Typescript and Node.js as backend with framework like serverless.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14
+- **Framework**: Next.js 15.2.2
 - **Package Manager**: npm
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -13,6 +13,15 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 - **Charting**: Recharts
 - **GitHub**: Next.js GitHub API
 - **WakaTime**: WakaTime API
+
+## Features
+
+- Mobile-first responsive design
+- iOS-inspired design system
+- Dark/light mode with system preference detection
+- Interactive project showcases
+- Development activity visualization
+- Smooth animations and transitions
 
 ## Getting Started
 
@@ -36,22 +45,34 @@ portfolio-website/
 │   ├── components/     # Reusable UI components
 │   ├── pages/         # Next.js pages
 │   ├── styles/        # Global styles
-│   ├── utils/         # Utility functions
+│   ├── data/         # Data files for projects
+│   ├── utils/        # Utility functions (do not modify)
 │   └── lib/          # Shared libraries
-├── public/
+└── public/
 │   ├── images/       # Static images
 │   └── icons/        # Icons
 └── package.json
 ```
 
-## Features
+## Design System
 
-- Responsive design
-- Dark/light mode support
-- Smooth animations
-- SEO optimized
-- Type-safe development
-- Modern UI components
+The website follows an iOS-inspired design system with:
+
+- **Colors**: System-standard iOS colors
+  - Primary Blue: #007AFF (light) / #0A84FF (dark)
+  - Text: #1C1C1E (light) / white (dark)
+  - Secondary Text: #8E8E93 (light) / #98989D (dark)
+
+- **Typography**: Inter font family
+  - Headers: text-3xl font-bold
+  - Subheaders: text-xl font-semibold
+  - Body: text-sm
+
+- **Components**: Modern, iOS-style UI elements
+  - Rounded corners (rounded-2xl)
+  - Subtle shadows
+  - Smooth hover states
+  - Native-feeling animations
 
 ## Development
 
