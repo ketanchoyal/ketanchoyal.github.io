@@ -4,7 +4,7 @@ import YearSelector from './YearSelector'
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 
-export default function CodingStats({ stats }: { stats: CodingStatsType }) {
+export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
   // Get available years from daily activity data
   const availableYears = useMemo(() => {
     const years = new Set<number>()
@@ -31,30 +31,7 @@ export default function CodingStats({ stats }: { stats: CodingStatsType }) {
   }, [stats.dailyActivity, selectedYear])
 
   return (
-    <div className='space-y-8'>
-      {/* Live Data Indicator */}
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-2'>
-          <motion.div
-            animate={{
-              scale: stats.isLive ? [1, 1.2, 1] : 1
-            }}
-            transition={{
-              repeat: stats.isLive ? Infinity : 0,
-              duration: 2
-            }}
-            className={`h-2 w-2 rounded-full ${
-              stats.isLive
-                ? 'bg-gradient-to-r from-[#32D74B] to-[#30D158]'
-                : 'bg-gradient-to-r from-[#FF9F0A] to-[#FFB340]'
-            }`}
-          />
-          <span className='text-sm text-[#8E8E93] dark:text-[#98989D]'>
-            {stats.isLive ? 'Live WakaTime Data' : 'Using Fallback Data'}
-          </span>
-        </div>
-      </div>
-
+    <div className='space-y-8 pt-8'>
       {/* Languages */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -123,7 +100,7 @@ export default function CodingStats({ stats }: { stats: CodingStatsType }) {
                   {editor.name}
                 </span>
               </div>
-              <span className='text-sm font-medium bg-gradient-to-r from-[#32D74B] to-[#30D158] bg-clip-text text-transparent'>
+              <span className='text-sm font-medium bg-gradient-to-r from-[#007AFF] to-[#32D74B] bg-clip-text text-transparent'>
                 {editor.percent.toFixed(1)}%
               </span>
             </motion.div>

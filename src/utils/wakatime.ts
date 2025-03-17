@@ -3,18 +3,8 @@ import type {
   WakaTimeActivityResponse,
   WakaTimeDailyActivityResponse,
   CodingStats,
-  WakaTimeDataItem,
-  WakaTimeCategory,
-  WakaTimeDailyData,
-  SimpleItem,
-  WakaTimeDailyActivity,
 } from "@/types/wakatime";
 import { FALLBACK_DATA } from "@/data/fallback-coding-stats";
-import {
-  MOBILE_LANGUAGES,
-  PACKAGE_LANGUAGES,
-  WEB_LANGUAGES,
-} from "@/data/development-categories";
 
 // WakaTime API URLs
 const WAKATIME_BASE_URL = "https://wakatime.com/share/@ketanchoyal";

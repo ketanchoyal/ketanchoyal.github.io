@@ -14,37 +14,19 @@ interface ProjectCardProps {
   project: Project
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard ({ project }: ProjectCardProps) {
   return (
     <motion.div
       variants={staggerItem}
-      className='group relative overflow-hidden rounded-2xl bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800'
+      className='group relative overflow-hidden rounded-2xl bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 h-[280px] flex flex-col'
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
     >
-      <div className='p-6'>
+      <div className='p-6 flex flex-col flex-1'>
         <div className='flex items-center justify-between mb-4'>
-          <div className='flex items-center gap-3'>
-            <h3 className='text-xl font-semibold bg-gradient-to-r from-[#007AFF] to-[#0A84FF] bg-clip-text text-transparent'>
-              {project.name}
-            </h3>
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              className={`flex items-center ${
-                project.isLive
-                  ? 'text-[#32D74B] dark:text-[#30D158]'
-                  : 'text-[#FF9F0A] dark:text-[#FFB340]'
-              }`}
-              title={project.isLive ? 'Live data from GitHub' : 'Cached data'}
-            >
-              {project.isLive ? (
-                <FiCloud className='w-4 h-4' />
-              ) : (
-                <FiDatabase className='w-4 h-4' />
-              )}
-            </motion.div>
-          </div>
+          <h3 className='text-xl font-semibold bg-gradient-to-r from-[#007AFF] to-[#0A84FF] bg-clip-text text-transparent'>
+            {project.name}
+          </h3>
           <div className='flex items-center gap-3'>
             <motion.a
               href={project.url}
@@ -71,12 +53,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        <p className='text-[#8E8E93] dark:text-[#98989D] text-sm mb-4 line-clamp-2'>
+        <p className='text-[#8E8E93] dark:text-[#98989D] text-sm mb-4 line-clamp-2 flex-grow'>
           {project.description}
         </p>
 
         {/* Technologies */}
-        <div className='flex flex-wrap gap-2 mb-4'>
+        <div className='flex flex-wrap gap-2 mb-4 overflow-hidden max-h-[72px]'>
           <span className='px-3 py-1.5 text-xs font-medium rounded-xl bg-[#007AFF]/10 dark:bg-[#007AFF]/20 text-[#007AFF] dark:text-[#0A84FF]'>
             {project.language}
           </span>
@@ -93,15 +75,33 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
 
-        <div className='flex items-center gap-4 text-sm text-[#8E8E93] dark:text-[#98989D]'>
-          <div className='flex items-center gap-2'>
-            <FiStar className='w-4 h-4 text-[#FF9F0A] dark:text-[#FFB340]' />
-            <span className='font-medium'>{project.stars}</span>
+        <div className='flex items-center justify-between mt-auto'>
+          <div className='flex items-center gap-4 text-sm text-[#8E8E93] dark:text-[#98989D]'>
+            <div className='flex items-center gap-2'>
+              <FiStar className='w-4 h-4 text-[#FF9F0A] dark:text-[#FFB340]' />
+              <span className='font-medium'>{project.stars}</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <FiGitBranch className='w-4 h-4 text-[#BF5AF2] dark:text-[#C377FE]' />
+              <span className='font-medium'>{project.forks}</span>
+            </div>
           </div>
-          <div className='flex items-center gap-2'>
-            <FiGitBranch className='w-4 h-4 text-[#BF5AF2] dark:text-[#C377FE]' />
-            <span className='font-medium'>{project.forks}</span>
-          </div>
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            className={`flex items-center ${
+              project.isLive
+                ? 'text-[#32D74B] dark:text-[#30D158]'
+                : 'text-[#FF9F0A] dark:text-[#FFB340]'
+            }`}
+            title={project.isLive ? 'Live data from GitHub' : 'Cached data'}
+          >
+            {project.isLive ? (
+              <FiCloud className='w-4 h-4' />
+            ) : (
+              <FiDatabase className='w-4 h-4' />
+            )}
+          </motion.div>
         </div>
       </div>
     </motion.div>

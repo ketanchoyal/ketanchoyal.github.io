@@ -54,6 +54,8 @@ const relevantTopics = [
   "aws",
 ];
 
+const mustHaveProjects = ["calorie_tracker"];
+
 export async function getFeaturedProjects(): Promise<Project[]> {
   try {
     const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
@@ -73,10 +75,12 @@ export async function getFeaturedProjects(): Promise<Project[]> {
         (repo) =>
           repo.topics.some((topic) =>
             relevantTopics.includes(topic.toLowerCase())
-          ) || repo.stargazers_count > 40 // Include highly starred repos even without relevant topics
+          ) ||
+          repo.stargazers_count > 10 ||
+          mustHaveProjects.includes(repo.name) // Include highly starred repos even without relevant topics
       )
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 5)
+      .slice(0, 6)
       .map((repo) => ({
         id: repo.id,
         name: repoNameToTitle(repo.name),
@@ -96,69 +100,3 @@ export async function getFeaturedProjects(): Promise<Project[]> {
     return FALLBACK;
   }
 }
-
-// Fallback data in case the API fails
-const FALLBACK_PROJECTS: Project[] = [
-  {
-    id: 1,
-    name: "Our E-School",
-    description:
-      "A mobile app created using Flutter Framework for School management.",
-    url: "https://github.com/ketanchoyal/Our-E-School",
-    demoUrl: null,
-    stars: 504,
-    forks: 292,
-    language: "Dart",
-    topics: ["Flutter", "Firebase", "Dart"],
-    isLive: false,
-  },
-  {
-    id: 2,
-    name: "Extended Navbar Scaffold",
-    description:
-      "A Custom Extended Scaffold with Expandable and Floating Navigation Bar.",
-    url: "https://github.com/ketanchoyal/extended_navbar_scaffold",
-    demoUrl: null,
-    stars: 141,
-    forks: 39,
-    language: "Dart",
-    topics: ["Flutter", "Dart", "UI Components"],
-    isLive: false,
-  },
-  {
-    id: 3,
-    name: "Mapbox Search",
-    description: "A Flutter package for place search using MapBox API.",
-    url: "https://github.com/ketanchoyal/mapbox_search",
-    demoUrl: null,
-    stars: 73,
-    forks: 60,
-    language: "Dart",
-    topics: ["Flutter", "MapBox", "Dart"],
-    isLive: false,
-  },
-  {
-    id: 4,
-    name: "Sub Track",
-    description: "A Flutter application to keep track of subscriptions.",
-    url: "https://github.com/ketanchoyal/Sub-Track",
-    demoUrl: null,
-    stars: 43,
-    forks: 3,
-    language: "Dart",
-    topics: ["Flutter", "Dart", "SQLite"],
-    isLive: false,
-  },
-  {
-    id: 5,
-    name: "Calorie Tracker",
-    description: "A calorie tracking app with iOS HealthKit integration.",
-    url: "https://github.com/ketanchoyal/calorie-tracker",
-    demoUrl: null,
-    stars: 15,
-    forks: 2,
-    language: "Dart",
-    topics: ["Flutter", "HealthKit", "iOS"],
-    isLive: false,
-  },
-];
