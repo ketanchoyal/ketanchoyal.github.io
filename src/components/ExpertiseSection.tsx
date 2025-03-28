@@ -16,38 +16,23 @@ const expertiseCategories = [
     title: 'Cloud & Backend',
     color: '#32D74B',
     darkColor: '#30D158',
-    items: [
-      'AWS Lambda',
-      'DynamoDB',
-      'API Gateway',
-      'Serverless Framework'
-    ]
+    items: ['AWS Lambda', 'DynamoDB', 'API Gateway', 'Serverless Framework']
   },
   {
     title: 'Frontend & TypeScript',
     color: '#BF5AF2',
     darkColor: '#C377FE',
-    items: [
-      'Next.js',
-      'React',
-      'TypeScript',
-      'Tailwind CSS'
-    ]
+    items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
   },
   {
     title: 'DevOps & Tools',
     color: '#FF9F0A',
     darkColor: '#FFB340',
-    items: [
-      'GitHub Actions',
-      'AWS CDK',
-      'Docker',
-      'CI/CD'
-    ]
+    items: ['GitHub Actions', 'Bitrise', 'CI/CD']
   }
 ]
 
-export default function ExpertiseSection() {
+export default function ExpertiseSection () {
   return (
     <section id='expertise' className='py-16 px-4'>
       <div className='container mx-auto'>
