@@ -29,13 +29,13 @@ const contactLinks: ContactLink[] = [
   },
   {
     name: 'Email',
-    url: 'mailto:ketanchoyal@gmail.com',
+    url: 'mailto:me@ketanchoyal.dev',
     icon: <FiMail className='w-6 h-6' />,
     gradient: 'from-[#FF9F0A] to-[#FFB340]'
   }
 ]
 
-export default function ContactSection() {
+export default function ContactSection () {
   return (
     <section id='contact' className='py-16 px-4'>
       <div className='container mx-auto max-w-3xl'>
