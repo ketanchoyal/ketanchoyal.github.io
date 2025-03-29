@@ -5,102 +5,18 @@ import type {
   CodingStats,
 } from "@/types/wakatime";
 import { FALLBACK_DATA } from "@/data/fallback-coding-stats";
-
-// WakaTime API URLs
-const WAKATIME_BASE_URL = "https://wakatime.com/share/@ketanchoyal";
-const WAKATIME_URLS = {
-  languages: `${WAKATIME_BASE_URL}/b937b52b-84cd-46df-a39b-3a7a32814103.json`,
-  activity: `${WAKATIME_BASE_URL}/f7eefa9d-d2f3-4159-bc9a-d1fc6990d045.json`,
-  editors: `${WAKATIME_BASE_URL}/9d72ac70-7a83-44db-8f6b-723274db360a.json`,
-  dailyActivity: `${WAKATIME_BASE_URL}/903c2445-765a-4768-97e4-4e5a373dd47c.json`,
-};
-
-async function fetchWakaTimeData<T>(url: string): Promise<T> {
-  try {
-    console.log(`Fetching WakaTime data from ${url}`);
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "Portfolio-Website",
-      },
-      next: {
-        revalidate: 3600, // Cache for 1 hour
-      },
-    });
-
-    if (!response.ok) {
-      console.error(`HTTP error! status: ${response.status}`);
-      throw new Error(`Failed to fetch WakaTime data: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-
-    // Log the raw response for debugging
-    console.log(`Raw WakaTime API response from ${url}:`, data);
-
-    // Check if the response has the expected structure
-    if (!data) {
-      console.error("Empty response from WakaTime API");
-      throw new Error("Empty response from WakaTime API");
-    }
-
-    // For daily activity data, the structure is different
-    if (url.includes("903c2445-765a")) {
-      // Daily activity URL
-      console.log("Processing daily activity data:", data);
-      if (!data.days) {
-        console.error("Missing 'days' property in daily activity data:", data);
-        throw new Error(
-          "Invalid daily activity data format: Missing 'days' property"
-        );
-      }
-      return data as T;
-    }
-
-    // For other endpoints, check for the data property
-    if (!data.data) {
-      console.error("Missing 'data' property in response:", data);
-      throw new Error(
-        `Invalid WakaTime data format: Missing 'data' property in response`
-      );
-    }
-
-    return data;
-  } catch (error) {
-    console.error(`Error fetching WakaTime data from ${url}:`, error);
-    console.error("Stack trace:", (error as Error).stack);
-    throw error;
-  }
-}
+import { getWakaTimeData } from "@/app/api/wakatime/data";
 
 export async function getWakaTimeStats(): Promise<CodingStats> {
   try {
-    // Log which URLs we're fetching from
-    console.log("Fetching WakaTime data from URLs:", {
-      languages: WAKATIME_URLS.languages,
-      activity: WAKATIME_URLS.activity,
-      editors: WAKATIME_URLS.editors,
-      dailyActivity: WAKATIME_URLS.dailyActivity,
-    });
-
     // Fetch all WakaTime data in parallel with proper typing
     const [shareData, activityData, editorsData, codingActivityData] =
       await Promise.all([
-        fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.languages),
-        fetchWakaTimeData<WakaTimeActivityResponse>(WAKATIME_URLS.activity),
-        fetchWakaTimeData<WakaTimeShareResponse>(WAKATIME_URLS.editors),
-        fetchWakaTimeData<WakaTimeDailyActivityResponse>(
-          WAKATIME_URLS.dailyActivity
-        ),
+        getWakaTimeData("languages") as Promise<WakaTimeShareResponse>,
+        getWakaTimeData("activity") as Promise<WakaTimeActivityResponse>,
+        getWakaTimeData("editors") as Promise<WakaTimeShareResponse>,
+        getWakaTimeData("dailyActivity") as Promise<WakaTimeDailyActivityResponse>,
       ]);
-
-    // Log successful data fetching and data shapes
-    console.log("Successfully fetched all WakaTime data:", {
-      shareDataShape: shareData?.data?.length,
-      activityDataShape: activityData?.data?.grand_total,
-      editorsDataShape: editorsData?.data?.length,
-      codingActivityDataShape: codingActivityData?.days?.length,
-    });
 
     // Process daily activity data
     const dailyActivity = codingActivityData.days
