@@ -4,7 +4,7 @@ import YearSelector from './YearSelector'
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 
-export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
+export default function CodingStats({ stats }: { stats: CodingStatsType }) {
   // Get available years from daily activity data
   const availableYears = useMemo(() => {
     const years = new Set<number>()
@@ -36,9 +36,9 @@ export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className='space-y-4'
+        className='space-y-6'
       >
-        <h3 className='text-xl font-semibold bg-gradient-to-r from-[#007AFF] to-[#0A84FF] bg-clip-text text-transparent'>
+        <h3 className='text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400'>
           Tech Stack
         </h3>
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
@@ -48,21 +48,19 @@ export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className='flex items-center justify-between rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+              whileHover={{ scale: 1.05 }}
+              className='glass-card p-4 rounded-xl flex items-center justify-between group'
             >
               <div className='flex items-center gap-3'>
                 <div
-                  className='h-3 w-3 rounded-full'
-                  style={{
-                    background: `linear-gradient(135deg, ${lang.color}, ${lang.color}88)`
-                  }}
+                  className='h-3 w-3 rounded-full shadow-[0_0_10px_currentColor]'
+                  style={{ color: lang.color, backgroundColor: lang.color }}
                 />
-                <span className='font-medium text-[#1C1C1E] dark:text-white'>
+                <span className='font-medium text-slate-700 dark:text-slate-200 group-hover:text-white transition-colors'>
                   {lang.name}
                 </span>
               </div>
-              <span className='text-sm font-medium bg-gradient-to-r from-[#007AFF] to-[#32D74B] bg-clip-text text-transparent'>
+              <span className='text-sm font-bold text-slate-500 dark:text-slate-400'>
                 {lang.percent.toFixed(1)}%
               </span>
             </motion.div>
@@ -74,9 +72,9 @@ export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className='space-y-4'
+        className='space-y-6'
       >
-        <h3 className='text-xl font-semibold bg-gradient-to-r from-[#32D74B] to-[#30D158] bg-clip-text text-transparent'>
+        <h3 className='text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400'>
           Development Environment
         </h3>
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
@@ -86,21 +84,19 @@ export default function CodingStats ({ stats }: { stats: CodingStatsType }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className='flex items-center justify-between rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+              whileHover={{ scale: 1.05 }}
+              className='glass-card p-4 rounded-xl flex items-center justify-between group'
             >
               <div className='flex items-center gap-3'>
                 <div
-                  className='h-3 w-3 rounded-full'
-                  style={{
-                    background: `linear-gradient(135deg, ${editor.color}, ${editor.color}88)`
-                  }}
+                  className='h-3 w-3 rounded-full shadow-[0_0_10px_currentColor]'
+                  style={{ color: editor.color, backgroundColor: editor.color }}
                 />
-                <span className='font-medium text-[#1C1C1E] dark:text-white'>
+                <span className='font-medium text-slate-700 dark:text-slate-200 group-hover:text-white transition-colors'>
                   {editor.name}
                 </span>
               </div>
-              <span className='text-sm font-medium bg-gradient-to-r from-[#007AFF] to-[#32D74B] bg-clip-text text-transparent'>
+              <span className='text-sm font-bold text-slate-500 dark:text-slate-400'>
                 {editor.percent.toFixed(1)}%
               </span>
             </motion.div>

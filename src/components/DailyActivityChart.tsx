@@ -26,7 +26,7 @@ interface DailyActivityChartProps {
   title?: string
 }
 
-export default function DailyActivityChart ({
+export default function DailyActivityChart({
   data,
   title = 'Coding Activity'
 }: DailyActivityChartProps): JSX.Element {
@@ -54,9 +54,9 @@ export default function DailyActivityChart ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.01 }}
       transition={{ duration: 0.2 }}
-      className='flex flex-col space-y-4 h-72 w-full rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl backdrop-saturate-150 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
+      className='glass-panel flex flex-col space-y-4 h-72 w-full rounded-3xl p-3 md:p-6'
     >
       <div className='flex items-center justify-between'>
         <div className='space-y-1'>
@@ -68,85 +68,88 @@ export default function DailyActivityChart ({
           </p>
         </div>
       </div>
-      <ResponsiveContainer width='100%' height='100%'>
-        <AreaChart
-          data={chartData}
-          margin={{ top: 10, right: 16, left: 8, bottom: 10 }}
-        >
-          <defs>
-            <linearGradient id='colorHours' x1='0' y1='0' x2='1' y2='0'>
-              <stop offset='5%' stopColor='#007AFF' stopOpacity={0.15} />
-              <stop offset='95%' stopColor='#32D74B' stopOpacity={0.02} />
-            </linearGradient>
-            <linearGradient id='chartStroke' x1='0' y1='0' x2='1' y2='0'>
-              <stop offset='0%' stopColor='#007AFF' />
-              <stop offset='100%' stopColor='#32D74B' />
-            </linearGradient>
-          </defs>
-          <XAxis
-            dataKey='month'
-            stroke='#8E8E93'
-            fontSize={12}
-            fontWeight={500}
-            tickLine={false}
-            axisLine={false}
-            ticks={uniqueMonths}
-            minTickGap={30}
-            interval={'equidistantPreserveStart'}
-            dy={8}
-            padding={{ left: 16, right: 16 }}
-          />
-          <YAxis
-            stroke='#8E8E93'
-            fontSize={12}
-            fontWeight={500}
-            tickLine={false}
-            axisLine={false}
-            tickFormatter={value => `${value}h`}
-            dx={-8}
-            padding={{ top: 16, bottom: 16 }}
-          />
-          <Tooltip
-            content={({ active, payload }) => {
-              if (active && payload && payload.length) {
-                const value = payload[0].value as number
-                const percentage = (value / maxHours) * 100
+      <div className='flex-1 min-h-0 w-full'>
+        <ResponsiveContainer width='100%' height='100%'>
+          <AreaChart
+            data={chartData}
+            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id='colorHours' x1='0' y1='0' x2='1' y2='0'>
+                <stop offset='5%' stopColor='#007AFF' stopOpacity={0.15} />
+                <stop offset='95%' stopColor='#32D74B' stopOpacity={0.02} />
+              </linearGradient>
+              <linearGradient id='chartStroke' x1='0' y1='0' x2='1' y2='0'>
+                <stop offset='0%' stopColor='#007AFF' />
+                <stop offset='100%' stopColor='#32D74B' />
+              </linearGradient>
+            </defs>
+            <XAxis
+              dataKey='month'
+              stroke='#8E8E93'
+              fontSize={12}
+              fontWeight={500}
+              tickLine={false}
+              axisLine={false}
+              ticks={uniqueMonths}
+              minTickGap={30}
+              interval={'equidistantPreserveStart'}
+              dy={8}
+              padding={{ left: 10, right: 10 }}
+            />
+            <YAxis
+              stroke='#8E8E93'
+              fontSize={12}
+              fontWeight={500}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={value => `${value}h`}
+              width={35}
+              dx={-5}
+              padding={{ top: 10, bottom: 10 }}
+            />
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  const value = payload[0].value as number
+                  const percentage = (value / maxHours) * 100
 
-                return (
-                  <div className='rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#1C1C1E]/90 p-4 shadow-lg backdrop-blur-xl backdrop-saturate-150'>
-                    <p className='text-base font-semibold text-[#1C1C1E] dark:text-white'>
-                      {payload[0].payload.fullDate}
-                    </p>
-                    <div className='mt-2 flex items-center justify-between'>
-                      <p className='text-sm text-[#8E8E93] dark:text-[#98989D]'>
-                        {value.toFixed(1)} hours
+                  return (
+                    <div className='rounded-2xl border border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#1C1C1E]/90 p-4 shadow-lg backdrop-blur-xl backdrop-saturate-150'>
+                      <p className='text-base font-semibold text-[#1C1C1E] dark:text-white'>
+                        {payload[0].payload.fullDate}
                       </p>
-                      <p className='text-sm font-medium bg-gradient-to-r from-[#007AFF] to-[#32D74B] bg-clip-text text-transparent'>
-                        {percentage.toFixed(0)}%
-                      </p>
+                      <div className='mt-2 flex items-center justify-between'>
+                        <p className='text-sm text-[#8E8E93] dark:text-[#98989D]'>
+                          {value.toFixed(1)} hours
+                        </p>
+                        <p className='text-sm font-medium bg-gradient-to-r from-[#007AFF] to-[#32D74B] bg-clip-text text-transparent'>
+                          {percentage.toFixed(0)}%
+                        </p>
+                      </div>
+                      <div className='mt-2 h-1.5 w-full rounded-full bg-gradient-to-r from-[#007AFF]/10 to-[#32D74B]/10'>
+                        <div
+                          className='h-1.5 rounded-full bg-gradient-to-r from-[#007AFF] to-[#32D74B]'
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className='mt-2 h-1.5 w-full rounded-full bg-gradient-to-r from-[#007AFF]/10 to-[#32D74B]/10'>
-                      <div
-                        className='h-1.5 rounded-full bg-gradient-to-r from-[#007AFF] to-[#32D74B]'
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                  </div>
-                )
-              }
-              return null
-            }}
-          />
-          <Area
-            type='monotone'
-            dataKey='hours'
-            stroke='url(#chartStroke)'
-            strokeWidth={2.5}
-            fillOpacity={1}
-            fill='url(#colorHours)'
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+                  )
+                }
+                return null
+              }}
+            />
+            <Area
+              type='monotone'
+              dataKey='hours'
+              stroke='url(#chartStroke)'
+              strokeWidth={2.5}
+              fillOpacity={1}
+              fill='url(#colorHours)'
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </motion.div>
   )
 }

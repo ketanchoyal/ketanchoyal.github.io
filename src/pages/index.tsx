@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import DataProvider from '@/components/DataProvider'
 import HeroSection from '@/components/HeroSection'
+import ExperienceSection from '@/components/ExperienceSection'
 import ExpertiseSection from '@/components/ExpertiseSection'
 import ProjectsSection from '@/components/ProjectsSection'
 import StatsSection from '@/components/StatsSection'
@@ -25,6 +26,7 @@ export default function Home() {
           <main className='min-h-screen bg-[#F2F2F7] dark:bg-black'>
             <NavBar />
             <HeroSection />
+            <ExperienceSection />
             <ExpertiseSection />
             <ProjectsSection
               projects={projects}

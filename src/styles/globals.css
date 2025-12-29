@@ -2,68 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* iOS/macOS System Font */
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local(-apple-system);
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local(-apple-system);
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local(-apple-system);
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local(-apple-system);
-  font-weight: 700;
-}
-
-/* Base styles */
-:root {
-  --system-blue: #007AFF;
-  --system-green: #32D74B;
-  --system-purple: #BF5AF2;
-  --system-background-light: #FFFFFF;
-  --system-background-dark: #000000;
-  --system-gray-light: #8E8E93;
-  --system-gray-dark: #98989D;
-}
-
 @layer base {
   body {
-    @apply font-sans antialiased bg-white text-black transition-colors duration-200;
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    @apply antialiased text-slate-900 dark:text-white transition-colors duration-300;
+    background-color: #0f172a; /* Slate 900 fallback */
   }
 
-  .dark body {
-    @apply bg-black text-white;
+  /* Animated Mesh Gradient Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: 
+      radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    background-size: 200% 200%;
+    animation: meshGradient 20s ease infinite;
   }
 
-  /* Improved text rendering */
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Secondary moving orbs for depth */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 120vh;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background: 
+      radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.15), transparent 50%),
+      radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1), transparent 40%);
+    pointer-events: none;
   }
 }
 
-/* iOS/macOS style transitions */
-.transition-theme {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
+@keyframes meshGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* iOS/macOS style backdrop blur */
-.backdrop-ios {
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/70 dark:bg-black/40 
+           backdrop-blur-xl backdrop-saturate-150 
+           border border-white/20 dark:border-white/10 
+           shadow-[0_8px_30px_rgb(0,0,0,0.12)];
+  }
+
+  .glass-card {
+    @apply bg-white/40 dark:bg-white/5 
+           backdrop-blur-md backdrop-saturate-150 
+           border border-white/20 dark:border-white/5 
+           hover:bg-white/60 dark:hover:bg-white/10 
+           transition-all duration-300;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+}
+
+/* Scrollbar refinement */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
 }

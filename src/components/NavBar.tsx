@@ -1,9 +1,11 @@
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import ThemeToggle from './ThemeToggle'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from 'next-themes'
+import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa'
 
 const navItems = [
   { name: 'Home', href: '#' },
+  { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
   { name: 'Expertise', href: '#expertise' },
   { name: 'Stats', href: '#stats' },
@@ -12,124 +14,86 @@ const navItems = [
 ]
 
 export default function NavBar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  useEffect(() => setMounted(true), [])
 
-  const handleMobileNavClick = (href: string) => {
-    setIsMobileMenuOpen(false)
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  if (!mounted) return null
 
   return (
-    <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
-          isScrolled || isMobileMenuOpen
-            ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl backdrop-saturate-150 border-b border-gray-100 dark:border-gray-800'
-            : 'bg-transparent'
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-      >
-        <nav className='container mx-auto max-w-6xl px-4 py-4 flex items-center justify-between'>
-          <motion.a
-            href='#'
-            className='text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]'
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            KC
-          </motion.a>
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "circOut" }}
+      className="fixed top-6 inset-x-0 z-50 flex justify-center px-4"
+    >
+      <div className="glass-panel rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-5xl w-full">
 
-          <div className='hidden md:flex items-center space-x-1'>
+        {/* Logo */}
+        <a
+          href="#"
+          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-80 transition-opacity"
+        >
+          KC
+        </a>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-white/10 hover:text-blue-500 dark:hover:text-white transition-all cursor-pointer"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-full hover:bg-white/50 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-gray-300"
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+          </button>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-white/50 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-gray-300"
+          >
+            {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="absolute top-20 left-4 right-4 p-4 rounded-3xl glass-panel md:hidden flex flex-col gap-2"
+          >
             {navItems.map((item) => (
-              <motion.a
+              <a
                 key={item.name}
                 href={item.href}
-                className='px-4 py-2 rounded-full text-[#8E8E93] dark:text-[#98989D] hover:text-[#1C1C1E] dark:hover:text-white transition-colors'
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                onClick={() => setIsOpen(false)}
+                className="px-4 py-3 rounded-2xl text-slate-600 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-white/10 hover:text-blue-500 dark:hover:text-white transition-all font-medium"
               >
                 {item.name}
-              </motion.a>
+              </a>
             ))}
-          </div>
-
-          <div className='flex items-center gap-4'>
-            <ThemeToggle />
-            <motion.button
-              className='md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label='Toggle mobile menu'
-            >
-              <svg
-                className='w-6 h-6 text-[#1C1C1E] dark:text-white'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d={
-                    isMobileMenuOpen
-                      ? 'M6 18L18 6M6 6l12 12'
-                      : 'M4 6h16M4 12h16M4 18h16'
-                  }
-                />
-              </svg>
-            </motion.button>
-          </div>
-        </nav>
-      </motion.header>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className='fixed inset-x-0 top-[72px] z-40 md:hidden'
-          >
-            <motion.div
-              className='container mx-auto px-4 py-4 bg-white/80 dark:bg-black/80 backdrop-blur-xl backdrop-saturate-150 border-b border-gray-100 dark:border-gray-800 rounded-2xl shadow-lg'
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-            >
-              <div className='flex flex-col space-y-1'>
-                {navItems.map((item) => (
-                  <motion.button
-                    key={item.name}
-                    onClick={() => handleMobileNavClick(item.href)}
-                    className='px-4 py-3 rounded-xl text-left text-[#8E8E93] dark:text-[#98989D] hover:text-[#1C1C1E] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {item.name}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.nav>
   )
 }

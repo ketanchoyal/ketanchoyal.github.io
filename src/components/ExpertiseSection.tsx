@@ -7,46 +7,69 @@ const expertiseCategories = [
     darkColor: '#0A84FF',
     items: [
       'Flutter & Dart',
-      'iOS Integration',
+      'Native Mobile (Swift/UIKit & Kotlin)',
+      'State Management (Riverpod,Bloc and More)',
       'Clean Architecture',
-      'State Management'
+      'Maps & Location Services (Mapbox)',
+      'App Store & Play Store Deployment'
     ]
   },
   {
     title: 'Cloud & Backend',
     color: '#32D74B',
     darkColor: '#30D158',
-    items: ['AWS Lambda', 'DynamoDB', 'API Gateway', 'Serverless Framework']
+    items: [
+      'AWS (Lambda, DynamoDB)',
+      'Serverless Framework',
+      'API Gateway & Redis',
+      'Google Cloud / Firebase',
+      'Node.js & GraphQL',
+      'Real-time Data Sync'
+    ]
   },
   {
-    title: 'Frontend & TypeScript',
+    title: 'Frontend & Web',
     color: '#BF5AF2',
     darkColor: '#C377FE',
-    items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
+    items: [
+      'Next.js & React',
+      'Vue.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'HTML/CSS',
+      'Responsive Design'
+    ]
   },
   {
-    title: 'DevOps & Tools',
+    title: 'DevOps & Processes',
     color: '#FF9F0A',
     darkColor: '#FFB340',
-    items: ['GitHub Actions', 'Bitrise', 'CI/CD']
+    items: [
+      'CI/CD (Bitrise, GitHub Actions)',
+      'Git, GitHub & Bitbucket',
+      'Jira, Confluence & Asana',
+      'Figma to Code Implementation',
+      'Unit, Widget & Integration Testing',
+      'Code Review & Mentorship'
+    ]
   }
 ]
 
-export default function ExpertiseSection () {
+export default function ExpertiseSection() {
   return (
-    <section id='expertise' className='py-16 px-4'>
+    <section id='expertise' className='py-20 px-4'>
       <div className='container mx-auto'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className='max-w-3xl'
+          className='max-w-6xl mx-auto'
         >
-          <h2 className='text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#007AFF] via-[#32D74B] to-[#BF5AF2]'>
-            Expertise
+          <h2 className='text-4xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400'>
+            Technical Expertise
           </h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             {expertiseCategories.map((category, index) => (
               <motion.div
                 key={category.title}
@@ -54,34 +77,24 @@ export default function ExpertiseSection () {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className='bg-white dark:bg-[#1C1C1E] rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300'
-                style={{
-                  borderLeft: `4px solid ${category.color}`,
-                  borderLeftColor: `${category.color}`
-                }}
+                className='glass-panel p-8 rounded-3xl hover:border-blue-500/30 transition-all'
               >
-                <h3 className='text-xl font-semibold mb-4 text-black dark:text-white'>
+                <h3 className='text-2xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3'>
+                  <span className='w-3 h-3 rounded-full' style={{ backgroundColor: category.color }} />
                   {category.title}
                 </h3>
-                <ul className='space-y-2'>
+                <ul className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                   {category.items.map((item, itemIndex) => (
                     <motion.li
                       key={item}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: itemIndex * 0.1 }}
+                      transition={{ delay: itemIndex * 0.05 }}
                       viewport={{ once: true }}
-                      className='flex items-center gap-2'
+                      className='flex items-center gap-2 text-slate-600 dark:text-slate-300 text-sm font-medium'
                     >
-                      <span
-                        className='w-2 h-2 rounded-full'
-                        style={{
-                          backgroundColor: category.color
-                        }}
-                      />
-                      <span className='text-[#8E8E93] dark:text-[#98989D]'>
-                        {item}
-                      </span>
+                      <span className='w-1.5 h-1.5 rounded-full bg-slate-400/50' />
+                      {item}
                     </motion.li>
                   ))}
                 </ul>
